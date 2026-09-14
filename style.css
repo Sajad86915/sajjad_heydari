@@ -198,30 +198,26 @@ footer{margin-top:44px}
   .game-links{grid-template-columns:1fr}
 }
 
-/* --- Top profile image --- */
+/* ---- profile image: compact, transparent outside the supplied oval artwork ---- */
 .profile-top{
-  display:flex;flex-direction:column;align-items:center;
-  margin:0 auto 30px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 24px;
 }
-.profile-circle{
-  width:220px;height:220px;border-radius:50%;overflow:hidden;
-  border:3px solid #b56cff;
-  box-shadow:0 0 0 5px rgba(181,108,255,.10),0 0 38px rgba(181,108,255,.38);
-  background:#000;
+.profile-photo{
+  display:block;width:230px;height:auto;max-width:70vw;
+  border:1px solid rgba(181,108,255,.45);
+  border-radius:50%;
+  box-shadow:0 0 28px rgba(181,108,255,.28),0 12px 35px rgba(0,0,0,.35);
 }
-.profile-circle img{
-  width:100%;height:100%;display:block;object-fit:cover;
+.profile-caption{
+  margin-top:12px;text-align:center;line-height:1.75;
+  font-family:"Cinzel",serif;font-size:14px;font-weight:700;
+  letter-spacing:1.3px;color:#f2f2f4;
+  text-shadow:0 0 12px rgba(181,108,255,.22);
 }
-.profile-title{
-  margin-top:16px;font-family:"Cinzel",serif;font-size:22px;font-weight:700;
-  letter-spacing:1.5px;color:#d8b25b;text-shadow:0 0 16px rgba(216,178,91,.22);
-}
-.profile-subtitle{
-  margin-top:5px;font-family:"Cinzel",serif;font-size:15px;font-weight:700;
-  letter-spacing:2px;color:#b56cff;text-shadow:0 0 14px rgba(181,108,255,.32);
-}
+.profile-caption div:first-child{color:#d8b25b}
+.profile-caption div:last-child{color:#b56cff}
 @media(max-width:560px){
-  .profile-circle{width:190px;height:190px}
-  .profile-title{font-size:19px}
-  .profile-subtitle{font-size:13px}
+  .profile-photo{width:200px;max-width:68vw}
+  .profile-caption{font-size:12px;margin-top:10px}
 }
