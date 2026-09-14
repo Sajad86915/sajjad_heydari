@@ -112,28 +112,30 @@ body:before{
 .github{background:linear-gradient(135deg,#2b2f36,#14161a);border-color:rgba(255,255,255,.18)!important;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 .github:hover{background:linear-gradient(135deg,#3a3f47,#1c1e22)}
 
-.rubika{background:linear-gradient(135deg,#ff5a2e,#d63a12);box-shadow:0 10px 30px rgba(255,90,46,.26)}
-.rubika:hover{background:linear-gradient(135deg,#ff733f,#e8471c)}
+.rubika{background:linear-gradient(135deg,#f0a03c 0%,#e8583f 18%,#3dbfae 40%,#4a7fe0 62%,#8b5fbf 82%,#a4ce39 100%);box-shadow:0 10px 30px rgba(74,127,224,.24)}
+.rubika:hover{filter:brightness(1.08)}
+.rubika .icon{background:transparent}
+.rubika .icon img{width:36px;height:36px;border-radius:9px}
 
 .eitaa{background:linear-gradient(135deg,#e0a530,#a6721b);box-shadow:0 10px 30px rgba(224,165,48,.26)}
 .eitaa:hover{background:linear-gradient(135deg,#f0b747,#bd8322)}
-.eitaa .icon,.bale .icon{background:#fff}
-.eitaa .icon img,.bale .icon img{width:30px;height:30px}
+.eitaa .icon,.bale .icon,.igap .icon,.soroush .icon,.gap .icon,.shad .icon{background:#fff}
+.eitaa .icon img,.bale .icon img,.igap .icon img,.soroush .icon img,.gap .icon img,.shad .icon img{width:30px;height:30px}
 
 .bale{background:linear-gradient(135deg,#ff9d1f,#e67e00);box-shadow:0 10px 30px rgba(255,157,31,.26)}
 .bale:hover{background:linear-gradient(135deg,#ffb04d,#f28b0d)}
 
-.igap{background:linear-gradient(135deg,#00c896,#009671);box-shadow:0 10px 30px rgba(0,200,150,.24)}
-.igap:hover{background:linear-gradient(135deg,#1adfab,#00a97e)}
+.igap{background:linear-gradient(160deg,#b7d233,#29a84c);box-shadow:0 10px 30px rgba(70,175,70,.24)}
+.igap:hover{background:linear-gradient(160deg,#c6e246,#33bd58)}
 
-.soroush{background:linear-gradient(135deg,#6a4c93,#493370);box-shadow:0 10px 30px rgba(106,76,147,.28)}
-.soroush:hover{background:linear-gradient(135deg,#7f5cb0,#5a3f88)}
+.soroush{background:linear-gradient(135deg,#3f7bf5,#1f56c9);box-shadow:0 10px 30px rgba(63,123,245,.28)}
+.soroush:hover{background:linear-gradient(135deg,#568cff,#2c66e0)}
 
-.gap{background:linear-gradient(135deg,#00acc1,#00758a);box-shadow:0 10px 30px rgba(0,172,193,.26)}
-.gap:hover{background:linear-gradient(135deg,#1cc4da,#00889f)}
+.gap{background:linear-gradient(160deg,#1fd7a6 0%,#7c4fe0 55%,#1f8fe0 100%);box-shadow:0 10px 30px rgba(124,79,224,.26)}
+.gap:hover{filter:brightness(1.1)}
 
-.shad{background:linear-gradient(135deg,#43a047,#2c7530);box-shadow:0 10px 30px rgba(67,160,71,.26)}
-.shad:hover{background:linear-gradient(135deg,#56b85a,#348a3a)}
+.shad{background:linear-gradient(135deg,#1fa551,#0d7a37);box-shadow:0 10px 30px rgba(31,165,81,.26)}
+.shad:hover{background:linear-gradient(135deg,#26bd5e,#0f8c40)}
 
 .game-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .steam{background:linear-gradient(135deg,#1b2838,#0e141b);border-color:rgba(102,192,244,.35);box-shadow:0 10px 30px rgba(27,40,56,.4);color:#fff}
