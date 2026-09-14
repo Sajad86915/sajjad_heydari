@@ -1,1 +1,3 @@
-document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".link-card,.game-id,.info-card").forEach((el,i)=>{el.style.opacity="0";el.style.transform="translateY(10px)";setTimeout(()=>{el.style.transition="opacity .45s ease,transform .45s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease";el.style.opacity="1";el.style.transform="translateY(0)"},70+i*35)})});
+document.querySelectorAll("a[target='_blank']").forEach(a=>{
+  a.addEventListener("click",()=>{});
+});
