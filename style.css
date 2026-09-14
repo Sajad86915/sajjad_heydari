@@ -115,8 +115,10 @@ body:before{
 .rubika{background:linear-gradient(135deg,#ff5a2e,#d63a12);box-shadow:0 10px 30px rgba(255,90,46,.26)}
 .rubika:hover{background:linear-gradient(135deg,#ff733f,#e8471c)}
 
-.eitaa{background:linear-gradient(135deg,#0a6fd1,#054a9e);box-shadow:0 10px 30px rgba(10,111,209,.26)}
-.eitaa:hover{background:linear-gradient(135deg,#1a80e6,#0959bf)}
+.eitaa{background:linear-gradient(135deg,#e0a530,#a6721b);box-shadow:0 10px 30px rgba(224,165,48,.26)}
+.eitaa:hover{background:linear-gradient(135deg,#f0b747,#bd8322)}
+.eitaa .icon,.bale .icon{background:#fff}
+.eitaa .icon img,.bale .icon img{width:30px;height:30px}
 
 .bale{background:linear-gradient(135deg,#ff9d1f,#e67e00);box-shadow:0 10px 30px rgba(255,157,31,.26)}
 .bale:hover{background:linear-gradient(135deg,#ffb04d,#f28b0d)}
