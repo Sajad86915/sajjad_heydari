@@ -48,55 +48,6 @@ body:before{
   background-size:36px 36px;
 }
 .page{width:min(720px,92%);margin:auto;padding:54px 0 34px;text-align:center}
-
-.profile-hero{
-  width:100%;
-  margin:0 auto 34px;
-  text-align:center;
-}
-.profile-photo-wrap{
-  width:min(100%, 560px);
-  margin:0 auto;
-  border-radius:28px;
-  overflow:hidden;
-  border:1px solid rgba(181,108,255,.45);
-  background:#09070f;
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.38),
-    0 0 34px rgba(181,108,255,.18);
-  position:relative;
-}
-.profile-photo{
-  width:100%;
-  aspect-ratio:814 / 1005;
-  display:block;
-  object-fit:cover;
-  object-position:center top;
-}
-.profile-caption{
-  margin-top:14px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-family:"Cinzel",serif;
-  font-weight:700;
-  letter-spacing:2px;
-  line-height:1.35;
-}
-.profile-caption div:first-child{
-  font-size:clamp(20px,5vw,27px);
-  color:#d8b25b;
-  text-shadow:0 0 16px rgba(216,178,91,.2);
-}
-.profile-caption div:last-child{
-  font-size:clamp(14px,3.5vw,18px);
-  color:var(--text);
-}
-@media(max-width:560px){
-  .profile-hero{margin-bottom:30px}
-  .profile-photo-wrap{border-radius:22px}
-}
-
 .hero{margin-bottom:38px}
 .brand{
   font-family:"Cinzel",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
@@ -245,4 +196,32 @@ footer{margin-top:44px}
   .meaning{font-size:13px;gap:7px}
   .social{min-height:66px}
   .game-links{grid-template-columns:1fr}
+}
+
+/* --- Top profile image --- */
+.profile-top{
+  display:flex;flex-direction:column;align-items:center;
+  margin:0 auto 30px;
+}
+.profile-circle{
+  width:220px;height:220px;border-radius:50%;overflow:hidden;
+  border:3px solid #b56cff;
+  box-shadow:0 0 0 5px rgba(181,108,255,.10),0 0 38px rgba(181,108,255,.38);
+  background:#000;
+}
+.profile-circle img{
+  width:100%;height:100%;display:block;object-fit:cover;
+}
+.profile-title{
+  margin-top:16px;font-family:"Cinzel",serif;font-size:22px;font-weight:700;
+  letter-spacing:1.5px;color:#d8b25b;text-shadow:0 0 16px rgba(216,178,91,.22);
+}
+.profile-subtitle{
+  margin-top:5px;font-family:"Cinzel",serif;font-size:15px;font-weight:700;
+  letter-spacing:2px;color:#b56cff;text-shadow:0 0 14px rgba(181,108,255,.32);
+}
+@media(max-width:560px){
+  .profile-circle{width:190px;height:190px}
+  .profile-title{font-size:19px}
+  .profile-subtitle{font-size:13px}
 }
