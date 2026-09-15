@@ -6,6 +6,7 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   var intro = document.getElementById("intro-screen");
   if(!intro) return;
   document.body.classList.add("intro-lock");
+  var audio = document.getElementById("intro-audio");
   var done = false;
   function hideIntro(){
     if(done) return;
@@ -13,10 +14,16 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     intro.classList.add("hide");
     document.body.classList.remove("intro-lock");
   }
+  if(audio){
+    audio.volume = 1;
+    var playAttempt = audio.play();
+    if(playAttempt && playAttempt.catch){ playAttempt.catch(function(){}); }
+    audio.addEventListener("ended", function(){ setTimeout(hideIntro, 250); });
+  }
   window.addEventListener("load", function(){
-    setTimeout(hideIntro, 1000);
+    setTimeout(hideIntro, 4200);
   });
-  setTimeout(hideIntro, 2600);
+  setTimeout(hideIntro, 4700);
 })();
 
 (function(){
