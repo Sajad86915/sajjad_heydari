@@ -47,12 +47,13 @@ document.querySelectorAll("[data-copy]").forEach(function(btn){
       try{document.execCommand("copy");}catch(err){}
       area.remove();
     }
-    var old=btn.querySelector("span:last-child").textContent;
+    var label=btn.querySelector("span:last-child");
+    var old=label.textContent;
     btn.classList.add("copied");
-    btn.querySelector("span:last-child").textContent="کپی شد ✓";
+    label.textContent="کپی شد ✓";
     setTimeout(function(){
       btn.classList.remove("copied");
-      btn.querySelector("span:last-child").textContent=old;
+      label.textContent=old;
     },1400);
   });
 });
