@@ -180,6 +180,31 @@ body:before{
 .game-link{min-height:62px;direction:rtl;text-align:right;justify-content:space-between;gap:8px}
 .game-link span:first-child{font-weight:800}
 .game-link span:last-child{font-size:13px;color:#aeb0b8}
+
+.game-link.clash{
+  grid-column:1/-1;flex-direction:column;align-items:stretch;padding:0;overflow:hidden;
+  background:linear-gradient(135deg,#f2a11d,#c96a12);border-color:rgba(255,196,84,.4);
+  box-shadow:0 10px 30px rgba(242,161,29,.28);min-height:auto
+}
+.game-link.clash:hover{transform:translateY(-2px);border-color:rgba(255,214,130,.65)}
+.clash-open{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:16px 16px 14px;text-decoration:none;color:#fff
+}
+.clash-open span:first-child{font-weight:800}
+.clash-open span:last-child{font-size:13px;color:rgba(255,255,255,.82)}
+.tag-copy{
+  border:none;border-top:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.16);color:#fff;padding:11px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:1px;
+  direction:ltr;transition:.2s ease
+}
+.tag-copy:hover{background:rgba(0,0,0,.28)}
+.tag-copy .tag-copy-icon{font-size:15px;opacity:.85}
+.tag-copy.copied{background:rgba(31,165,81,.35)}
+.tag-copy.copied .tag-copy-icon{opacity:1}
+
 .game-note{margin-top:14px;color:#d8b25b;line-height:1.9;font-weight:700}
 .game-note small{color:#aaa;font-weight:500}
 footer{margin-top:44px}
@@ -203,6 +228,23 @@ footer{margin-top:44px}
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   margin:0 auto 24px;
 }
+.avatar-ring{position:relative;display:inline-block;border-radius:50%}
+.avatar-ring::before{
+  content:"";position:absolute;inset:-7px;border-radius:50%;
+  background:conic-gradient(from 0deg,
+    transparent 0deg, transparent 255deg,
+    rgba(181,108,255,.12) 285deg,
+    #b56cff 320deg,
+    #f2e4ff 336deg,
+    #b56cff 352deg,
+    transparent 360deg);
+  -webkit-mask:radial-gradient(ellipse at center,transparent calc(100% - 6px),#000 calc(100% - 6px));
+  mask:radial-gradient(ellipse at center,transparent calc(100% - 6px),#000 calc(100% - 6px));
+  filter:drop-shadow(0 0 7px rgba(181,108,255,.6));
+  animation:avatarRingSpin 3.4s linear infinite;
+  pointer-events:none
+}
+@keyframes avatarRingSpin{to{transform:rotate(360deg)}}
 .profile-photo{
   display:block;width:230px;height:auto;max-width:70vw;
   border:1px solid rgba(181,108,255,.45);

@@ -32,3 +32,39 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
+(function(){
+  document.querySelectorAll(".tag-copy").forEach(function(btn){
+    var textEl = btn.querySelector(".tag-copy-text");
+    var original = textEl.textContent;
+    var value = btn.getAttribute("data-copy") || original;
+    var timer = null;
+
+    function fallbackCopy(text){
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try{ document.execCommand("copy"); }catch(e){}
+      document.body.removeChild(ta);
+    }
+
+    btn.addEventListener("click", function(){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(value).catch(function(){ fallbackCopy(value); });
+      }else{
+        fallbackCopy(value);
+      }
+      btn.classList.add("copied");
+      textEl.textContent = "کپی شد ✓";
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        btn.classList.remove("copied");
+        textEl.textContent = original;
+      }, 1600);
+    });
+  });
+})();
+
