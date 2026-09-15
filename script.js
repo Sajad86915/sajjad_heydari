@@ -147,3 +147,38 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
+
+(function(){
+  var sections = document.querySelectorAll(".reveal");
+  if(!sections.length) return;
+  if("IntersectionObserver" in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    sections.forEach(function(el){ observer.observe(el); });
+  }else{
+    sections.forEach(function(el){ el.classList.add("in-view"); });
+  }
+})();
+
+(function(){
+  var btn = document.getElementById("back-to-top");
+  if(!btn) return;
+  function toggleVisibility(){
+    if(window.scrollY > 420){
+      btn.classList.add("show");
+    }else{
+      btn.classList.remove("show");
+    }
+  }
+  window.addEventListener("scroll", toggleVisibility, { passive:true });
+  toggleVisibility();
+  btn.addEventListener("click", function(){
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+})();
