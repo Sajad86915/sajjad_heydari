@@ -32,3 +32,27 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
+
+
+// Copy gaming IDs
+document.querySelectorAll("[data-copy]").forEach(function(btn){
+  btn.addEventListener("click", async function(){
+    var value = btn.getAttribute("data-copy");
+    try{
+      await navigator.clipboard.writeText(value);
+    }catch(e){
+      var area=document.createElement("textarea");
+      area.value=value; area.style.position="fixed"; area.style.opacity="0";
+      document.body.appendChild(area); area.select();
+      try{document.execCommand("copy");}catch(err){}
+      area.remove();
+    }
+    var old=btn.querySelector("span:last-child").textContent;
+    btn.classList.add("copied");
+    btn.querySelector("span:last-child").textContent="کپی شد ✓";
+    setTimeout(function(){
+      btn.classList.remove("copied");
+      btn.querySelector("span:last-child").textContent=old;
+    },1400);
+  });
+});

@@ -198,26 +198,55 @@ footer{margin-top:44px}
   .game-links{grid-template-columns:1fr}
 }
 
-/* ---- profile image: compact, transparent outside the supplied oval artwork ---- */
+/* ---- profile image: compact circle with animated purple light ring ---- */
 .profile-top{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   margin:0 auto 24px;
 }
+.profile-frame{
+  position:relative;width:220px;height:220px;border-radius:50%;
+  display:grid;place-items:center;
+  isolation:isolate;
+}
+.profile-frame::before{
+  content:"";position:absolute;inset:-5px;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0deg,transparent 285deg,#b56cff 325deg,#7c3aed 350deg,#d8b25b 360deg);
+  filter:blur(1px);
+  animation:profileRingSpin 2.8s linear infinite;
+  z-index:-2;
+}
+.profile-frame::after{
+  content:"";position:absolute;inset:-11px;border-radius:50%;
+  background:conic-gradient(from 180deg,transparent 0deg,transparent 300deg,rgba(181,108,255,.65) 340deg,transparent 360deg);
+  filter:blur(7px);opacity:.9;
+  animation:profileRingSpin 2.8s linear infinite;
+  z-index:-3;
+}
+@keyframes profileRingSpin{to{transform:rotate(360deg)}}
 .profile-photo{
-  display:block;width:230px;height:auto;max-width:70vw;
-  border:1px solid rgba(181,108,255,.45);
-  border-radius:50%;
-  box-shadow:0 0 28px rgba(181,108,255,.28),0 12px 35px rgba(0,0,0,.35);
+  display:block;width:210px;height:210px;max-width:none;
+  object-fit:cover;border-radius:50%;
+  border:2px solid rgba(10,8,18,.9);
+  box-shadow:0 0 20px rgba(181,108,255,.28),0 12px 35px rgba(0,0,0,.35);
+  background:transparent;
 }
 .profile-caption{
-  margin-top:12px;text-align:center;line-height:1.75;
+  margin-top:14px;text-align:center;line-height:1.75;
   font-family:"Cinzel",serif;font-size:14px;font-weight:700;
-  letter-spacing:1.3px;color:#f2f2f4;
+  letter-spacing:1.3px;color:#d8b25b;
   text-shadow:0 0 12px rgba(181,108,255,.22);
 }
-.profile-caption div:first-child{color:#d8b25b}
-.profile-caption div:last-child{color:#b56cff}
+.game-copy{
+  width:100%;border:1px solid rgba(181,108,255,.22);cursor:pointer;
+}
+.game-copy:active{transform:scale(.98)}
+.game-copy.copied span:last-child{color:#8ef0b2}
 @media(max-width:560px){
-  .profile-photo{width:200px;max-width:68vw}
+  .profile-frame{width:190px;height:190px}
+  .profile-photo{width:180px;height:180px}
   .profile-caption{font-size:12px;margin-top:10px}
 }
+
+.game-link.clash{border-color:rgba(107,157,255,.35)}
+.game-link.clash:hover{border-color:rgba(107,157,255,.75);box-shadow:0 0 18px rgba(107,157,255,.16)}
+.game-copy{font-family:inherit;background:var(--card-bg);color:inherit;text-align:right;direction:rtl}
