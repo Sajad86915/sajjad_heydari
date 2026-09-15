@@ -3,6 +3,23 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 });
 
 (function(){
+  var intro = document.getElementById("intro-screen");
+  if(!intro) return;
+  document.body.classList.add("intro-lock");
+  var done = false;
+  function hideIntro(){
+    if(done) return;
+    done = true;
+    intro.classList.add("hide");
+    document.body.classList.remove("intro-lock");
+  }
+  window.addEventListener("load", function(){
+    setTimeout(hideIntro, 1000);
+  });
+  setTimeout(hideIntro, 2600);
+})();
+
+(function(){
   var body = document.body;
   var btn = document.getElementById("theme-toggle");
   if(!btn) return;

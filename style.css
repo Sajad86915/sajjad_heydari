@@ -230,18 +230,24 @@ footer{margin-top:44px}
 }
 .avatar-ring{position:relative;display:inline-block;border-radius:50%}
 .avatar-ring::before{
-  content:"";position:absolute;inset:-7px;border-radius:50%;
+  content:"";position:absolute;inset:-13px;border-radius:50%;
+  border:1.5px solid rgba(181,108,255,.32);
+  box-shadow:0 0 14px rgba(181,108,255,.4),inset 0 0 14px rgba(181,108,255,.15);
+  pointer-events:none
+}
+.avatar-ring::after{
+  content:"";position:absolute;inset:-13px;border-radius:50%;
   background:conic-gradient(from 0deg,
-    transparent 0deg, transparent 255deg,
-    rgba(181,108,255,.12) 285deg,
-    #b56cff 320deg,
-    #f2e4ff 336deg,
-    #b56cff 352deg,
+    transparent 0deg, transparent 248deg,
+    rgba(181,108,255,.3) 274deg,
+    #c896ff 306deg,
+    #ffffff 322deg,
+    #c896ff 338deg,
     transparent 360deg);
-  -webkit-mask:radial-gradient(ellipse at center,transparent calc(100% - 6px),#000 calc(100% - 6px));
-  mask:radial-gradient(ellipse at center,transparent calc(100% - 6px),#000 calc(100% - 6px));
-  filter:drop-shadow(0 0 7px rgba(181,108,255,.6));
-  animation:avatarRingSpin 3.4s linear infinite;
+  -webkit-mask:radial-gradient(ellipse at center,transparent calc(100% - 5px),#000 calc(100% - 5px));
+  mask:radial-gradient(ellipse at center,transparent calc(100% - 5px),#000 calc(100% - 5px));
+  filter:drop-shadow(0 0 11px rgba(181,108,255,.9));
+  animation:avatarRingSpin 2.6s linear infinite;
   pointer-events:none
 }
 @keyframes avatarRingSpin{to{transform:rotate(360deg)}}
@@ -263,3 +269,32 @@ footer{margin-top:44px}
   .profile-photo{width:200px;max-width:68vw}
   .profile-caption{font-size:12px;margin-top:10px}
 }
+
+/* ---- intro splash screen ---- */
+body.intro-lock{overflow:hidden}
+#intro-screen{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(181,108,255,.22),transparent 55%),
+    linear-gradient(180deg,#08090d 0%,#0b0c11 100%);
+  transition:opacity .6s ease,visibility .6s ease
+}
+#intro-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-inner{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px}
+.intro-ring{
+  width:82px;height:82px;border-radius:50%;
+  border:3px solid rgba(181,108,255,.16);
+  border-top-color:#b56cff;
+  box-shadow:0 0 22px rgba(181,108,255,.35);
+  animation:introSpin .9s linear infinite
+}
+.intro-brand{
+  font-family:"Cinzel",serif;font-size:clamp(24px,7vw,38px);font-weight:700;letter-spacing:4px;
+  background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 24px rgba(216,178,91,.2);
+  animation:introFadeUp .8s ease .15s both
+}
+.intro-sub{color:#9b9ca5;font-size:12px;letter-spacing:3px;animation:introFadeUp .8s ease .3s both}
+@keyframes introSpin{to{transform:rotate(360deg)}}
+@keyframes introFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
