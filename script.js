@@ -19,27 +19,42 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 })();
 
 (function(){
+  var startGate = document.getElementById("start-gate");
+  var startBtn = document.getElementById("start-btn");
   var intro = document.getElementById("intro-screen");
-  if(!intro) return;
+  if(!intro){ if(startGate) startGate.remove(); return; }
+
   document.body.classList.add("intro-lock");
   var audio = document.getElementById("intro-audio");
   var done = false;
+
   function hideIntro(){
     if(done) return;
     done = true;
     intro.classList.add("hide");
     document.body.classList.remove("intro-lock");
   }
-  if(audio){
-    audio.volume = 1;
-    var playAttempt = audio.play();
-    if(playAttempt && playAttempt.catch){ playAttempt.catch(function(){}); }
-    audio.addEventListener("ended", function(){ setTimeout(hideIntro, 250); });
+
+  function beginIntro(){
+    intro.classList.add("show");
+    if(audio){
+      audio.currentTime = 0;
+      audio.volume = 1;
+      var playAttempt = audio.play();
+      if(playAttempt && playAttempt.catch){ playAttempt.catch(function(){}); }
+      audio.addEventListener("ended", function(){ setTimeout(hideIntro, 250); });
+    }
+    setTimeout(hideIntro, 4700);
   }
-  window.addEventListener("load", function(){
-    setTimeout(hideIntro, 4200);
-  });
-  setTimeout(hideIntro, 4700);
+
+  if(startBtn){
+    startBtn.addEventListener("click", function(){
+      if(startGate) startGate.classList.add("hide");
+      beginIntro();
+    }, { once:true });
+  }else{
+    beginIntro();
+  }
 })();
 
 (function(){

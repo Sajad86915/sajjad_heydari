@@ -289,6 +289,42 @@ footer{margin-top:44px}
   .profile-caption{font-size:12px;margin-top:10px}
 }
 
+/* ---- start gate: required so mobile browsers allow the intro audio to play ---- */
+#start-gate{
+  position:fixed;inset:0;z-index:10000;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(181,108,255,.2),transparent 55%),
+    linear-gradient(180deg,#08090d 0%,#0b0c11 100%);
+  transition:opacity .5s ease,visibility .5s ease
+}
+#start-gate.hide{opacity:0;visibility:hidden;pointer-events:none}
+#start-btn{
+  cursor:pointer;background:transparent;border:1.5px solid rgba(255,255,255,.22);
+  border-radius:999px;padding:20px 40px;display:flex;flex-direction:column;
+  align-items:center;gap:8px;font-family:"Cinzel",serif;
+  box-shadow:0 0 0 rgba(181,108,255,0);
+  animation:startBtnPulse 2.2s ease-in-out infinite;
+  transition:transform .25s ease,border-color .25s ease
+}
+#start-btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.45)}
+@keyframes startBtnPulse{
+  0%,100%{box-shadow:0 0 0 rgba(181,108,255,.35)}
+  50%{box-shadow:0 0 26px rgba(181,108,255,.35)}
+}
+.rainbow-text{
+  font-size:clamp(17px,5.4vw,24px);font-weight:700;letter-spacing:3px;
+  background:linear-gradient(90deg,#ff3b3b,#ff9d3b,#f4e04d,#3ddc84,#3bb0ff,#7c5cff,#ff3bcf,#ff3b3b);
+  background-size:400% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:rainbowShift 3.2s linear infinite
+}
+.start-btn-sub{color:#8c8d96;font-size:11px;letter-spacing:3px;font-family:"Vazirmatn",sans-serif}
+@keyframes rainbowShift{
+  0%{background-position:0% 50%}
+  100%{background-position:400% 50%}
+}
+
 /* ---- intro splash screen ---- */
 body.intro-lock{overflow:hidden}
 #intro-screen{
@@ -305,23 +341,25 @@ body.intro-lock{overflow:hidden}
   width:82px;height:82px;border-radius:50%;
   border:3px solid rgba(181,108,255,.16);
   border-top-color:#b56cff;
-  box-shadow:0 0 22px rgba(181,108,255,.35);
-  animation:introSpin .9s linear infinite
+  box-shadow:0 0 22px rgba(181,108,255,.35)
 }
+#intro-screen.show .intro-ring{animation:introSpin .9s linear infinite}
 .intro-brand{
   font-family:"Cinzel",serif;font-size:clamp(24px,7vw,38px);font-weight:700;letter-spacing:4px;
   background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
   text-shadow:0 0 24px rgba(216,178,91,.2);
-  animation:introFadeUp .8s ease .15s both
+  opacity:0
 }
-.intro-sub{color:#9b9ca5;font-size:12px;letter-spacing:3px;animation:introFadeUp .8s ease .3s both}
+#intro-screen.show .intro-brand{animation:introFadeUp .8s ease .15s both}
+.intro-sub{color:#9b9ca5;font-size:12px;letter-spacing:3px;opacity:0}
+#intro-screen.show .intro-sub{animation:introFadeUp .8s ease .3s both}
 .intro-words{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;max-width:300px;min-height:22px}
 .intro-word{
   opacity:0;transform:translateY(10px) scale(.7);
   font-family:"Cinzel",serif;font-weight:700;font-size:16px;letter-spacing:.5px;
-  color:#fff;text-shadow:0 0 16px rgba(181,108,255,.75);
-  animation:introWordPop .5s cubic-bezier(.34,1.56,.64,1) forwards
+  color:#fff;text-shadow:0 0 16px rgba(181,108,255,.75)
 }
+#intro-screen.show .intro-word{animation:introWordPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
 .intro-word:nth-child(even){color:#f0dba8;text-shadow:0 0 16px rgba(216,178,91,.7)}
 @keyframes introSpin{to{transform:rotate(360deg)}}
 @keyframes introFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
