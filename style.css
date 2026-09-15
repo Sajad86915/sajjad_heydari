@@ -319,7 +319,11 @@ footer{margin-top:44px}
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:rainbowShift 3.2s linear infinite
 }
-.start-btn-sub{color:#8c8d96;font-size:11px;letter-spacing:3px;font-family:"Vazirmatn",sans-serif}
+.start-loading-count{
+  font-family:"Cinzel",serif;font-size:clamp(30px,9vw,46px);font-weight:700;letter-spacing:2px;
+  color:#fff;text-shadow:0 0 22px rgba(181,108,255,.55)
+}
+.start-loading-percent{font-size:.55em;color:#b56cff;margin-right:2px}
 @keyframes rainbowShift{
   0%{background-position:0% 50%}
   100%{background-position:400% 50%}

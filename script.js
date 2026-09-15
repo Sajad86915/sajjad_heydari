@@ -48,9 +48,30 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   }
 
   if(startBtn){
+    var clickText = startBtn.querySelector(".start-click-text");
+    var counterEl = startBtn.querySelector(".start-loading-count");
     startBtn.addEventListener("click", function(){
-      if(startGate) startGate.classList.add("hide");
-      beginIntro();
+      if(clickText) clickText.hidden = true;
+      if(counterEl) counterEl.hidden = false;
+
+      var duration = 1200;
+      var startTime = null;
+
+      function step(ts){
+        if(startTime === null) startTime = ts;
+        var progress = Math.min(1, (ts - startTime) / duration);
+        var value = Math.round(progress * 100);
+        if(counterEl) counterEl.firstChild.textContent = value;
+        if(progress < 1){
+          requestAnimationFrame(step);
+        }else{
+          setTimeout(function(){
+            if(startGate) startGate.classList.add("hide");
+            beginIntro();
+          }, 220);
+        }
+      }
+      requestAnimationFrame(step);
     }, { once:true });
   }else{
     beginIntro();
