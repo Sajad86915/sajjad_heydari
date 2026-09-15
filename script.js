@@ -3,6 +3,22 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 });
 
 (function(){
+  var btn = document.getElementById("date-color-toggle");
+  var info = document.getElementById("birthdate-info");
+  if(!btn || !info) return;
+  var icon = btn.querySelector(".date-color-toggle-icon");
+  var text = btn.querySelector(".date-color-toggle-text");
+  var frozen = false;
+  btn.addEventListener("click", function(){
+    frozen = !frozen;
+    info.classList.toggle("color-frozen", frozen);
+    btn.classList.toggle("frozen", frozen);
+    icon.textContent = frozen ? "▶" : "⏸";
+    text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
+  });
+})();
+
+(function(){
   var intro = document.getElementById("intro-screen");
   if(!intro) return;
   document.body.classList.add("intro-lock");
@@ -32,16 +48,19 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   if(!btn) return;
   var icon = btn.querySelector(".theme-toggle-icon");
   var label = btn.querySelector(".theme-toggle-text");
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
 
   function applyTheme(theme){
     if(theme === "light"){
       body.classList.add("light");
       icon.textContent = "🌙";
       label.textContent = "حالت شب";
+      if(metaTheme) metaTheme.setAttribute("content", "#f6f5f9");
     }else{
       body.classList.remove("light");
       icon.textContent = "☀️";
       label.textContent = "حالت روز";
+      if(metaTheme) metaTheme.setAttribute("content", "#08090d");
     }
   }
 
