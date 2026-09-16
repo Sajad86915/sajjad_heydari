@@ -21,22 +21,6 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   a.addEventListener("click",()=>{});
 });
 
-(function(){
-  var btn = document.getElementById("date-color-toggle");
-  var info = document.getElementById("birthdate-info");
-  if(!btn || !info) return;
-  var icon = btn.querySelector(".date-color-toggle-icon");
-  var text = btn.querySelector(".date-color-toggle-text");
-  var frozen = false;
-  btn.addEventListener("click", function(){
-    frozen = !frozen;
-    info.classList.toggle("color-frozen", frozen);
-    btn.classList.toggle("frozen", frozen);
-    document.body.classList.toggle("motion-paused", frozen);
-    icon.textContent = frozen ? "▶" : "⏸";
-    text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
-  });
-})();
 
 (function(){
   var startGate = document.getElementById("start-gate");
@@ -167,38 +151,6 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
-(function(){
-  var body = document.body;
-  var btn = document.getElementById("theme-toggle");
-  if(!btn) return;
-  var icon = btn.querySelector(".theme-toggle-icon");
-  var label = btn.querySelector(".theme-toggle-text");
-  var metaTheme = document.querySelector('meta[name="theme-color"]');
-
-  function applyTheme(theme){
-    if(theme === "light"){
-      body.classList.add("light");
-      icon.textContent = "🌙";
-      label.textContent = "حالت شب";
-      if(metaTheme) metaTheme.setAttribute("content", "#f6f5f9");
-    }else{
-      body.classList.remove("light");
-      icon.textContent = "☀️";
-      label.textContent = "حالت روز";
-      if(metaTheme) metaTheme.setAttribute("content", "#08090d");
-    }
-  }
-
-  var saved = null;
-  try{ saved = localStorage.getItem("mrash-theme"); }catch(e){}
-  applyTheme(saved === "light" ? "light" : "dark");
-
-  btn.addEventListener("click", function(){
-    var next = body.classList.contains("light") ? "dark" : "light";
-    applyTheme(next);
-    try{ localStorage.setItem("mrash-theme", next); }catch(e){}
-  });
-})();
 
 (function(){
   document.querySelectorAll(".tag-copy").forEach(function(btn){
@@ -284,55 +236,37 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
-
-
+/* GLOBAL THEME/COLOR CONTROLLER */
 (function(){
-  var body = document.body;
-  var themeBtn = document.getElementById("theme-toggle");
-  var colorBtn = document.getElementById("color-toggle");
+  var body=document.body;
+  var theme=document.getElementById("theme-toggle");
+  var color=document.getElementById("color-toggle");
 
-  function applyTheme(){
-    var light = localStorage.getItem("site-theme") === "light";
-    body.classList.toggle("light-theme", light);
-    if(themeBtn){
-      var icon = themeBtn.querySelector(".hub-control-icon");
-      var text = themeBtn.querySelector(".hub-control-text");
-      if(icon) icon.textContent = light ? "☾" : "☼";
-      if(text) text.textContent = light ? "NIGHT" : "DAY";
+  function sync(){
+    var light=localStorage.getItem("site-theme")==="light";
+    var off=localStorage.getItem("site-color")==="off";
+    body.classList.toggle("light-theme",light);
+    body.classList.toggle("color-off",off);
+
+    if(theme){
+      theme.querySelector(".hub-control-icon").textContent=light?"☾":"☼";
+      theme.querySelector(".hub-control-text").textContent=light?"NIGHT":"DAY";
+    }
+    if(color){
+      color.querySelector(".hub-control-icon").textContent=off?"○":"◉";
+      color.querySelector(".hub-control-text").textContent=off?"COLOR OFF":"COLOR";
     }
   }
+  sync();
 
-  function applyColor(){
-    var off = localStorage.getItem("site-color") === "off";
-    body.classList.toggle("color-off", off);
-    if(colorBtn){
-      var icon = colorBtn.querySelector(".hub-control-icon");
-      var text = colorBtn.querySelector(".hub-control-text");
-      if(icon) icon.textContent = off ? "○" : "◉";
-      if(text) text.textContent = off ? "COLOR OFF" : "COLOR";
-    }
-  }
-
-  applyTheme();
-  applyColor();
-
-  if(themeBtn){
-    themeBtn.addEventListener("click", function(){
-      localStorage.setItem(
-        "site-theme",
-        body.classList.contains("light-theme") ? "dark" : "light"
-      );
-      applyTheme();
-    });
-  }
-
-  if(colorBtn){
-    colorBtn.addEventListener("click", function(){
-      localStorage.setItem(
-        "site-color",
-        body.classList.contains("color-off") ? "on" : "off"
-      );
-      applyColor();
-    });
-  }
+  if(theme) theme.addEventListener("click",function(){
+    localStorage.setItem("site-theme",
+      body.classList.contains("light-theme")?"dark":"light");
+    sync();
+  });
+  if(color) color.addEventListener("click",function(){
+    localStorage.setItem("site-color",
+      body.classList.contains("color-off")?"on":"off");
+    sync();
+  });
 })();
