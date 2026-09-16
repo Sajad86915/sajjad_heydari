@@ -51,8 +51,7 @@ body:before{
 .hero{margin-bottom:38px}
 .brand{
   font-family:"Cinzel",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
-  display:flex;flex-direction:column;align-items:center;line-height:.98;
-  margin-top:4px;
+  display:inline-flex;align-items:baseline
 }
 .brand-text{
   background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
@@ -109,11 +108,32 @@ body:before{
   width:100%;min-height:70px;padding:12px 16px;border-radius:20px;
   display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
   background:var(--card-bg);border:1px solid var(--card-border);
-  box-shadow:0 10px 28px var(--card-shadow),0 0 18px -4px var(--ring-a);transition:.2s ease;
+  box-shadow:0 10px 28px var(--card-shadow);transition:.2s ease;
   direction:ltr;text-align:left;
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
-
+.social::before,.game-link::before{
+  content:"";position:absolute;top:6%;bottom:6%;left:-1.5px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,
+    transparent 0%, var(--ring-a) 18%, #ffffff 50%, var(--ring-b) 82%, transparent 100%);
+  background-size:100% 300%;
+  filter:drop-shadow(0 0 4px var(--ring-a));
+  animation:sideGlow 2.6s linear infinite;
+  opacity:.9;pointer-events:none
+}
+.social::after,.game-link::after{
+  content:"";position:absolute;top:6%;bottom:6%;right:-1.5px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,
+    transparent 0%, var(--ring-b) 18%, #ffffff 50%, var(--ring-a) 82%, transparent 100%);
+  background-size:100% 300%;
+  filter:drop-shadow(0 0 4px var(--ring-b));
+  animation:sideGlow 2.6s linear infinite reverse;
+  opacity:.9;pointer-events:none
+}
+@keyframes sideGlow{
+  0%{background-position:0% 0%}
+  100%{background-position:0% 200%}
+}
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
   width:46px;height:46px;flex:0 0 46px;border-radius:15px;display:grid;place-items:center;
@@ -409,15 +429,15 @@ body.intro-lock{overflow:hidden}
 
 /* ---- scroll-reveal for sections ---- */
 .reveal-group{position:relative}
- .reveal-item{
+.reveal-item{
   opacity:0;
-  transform:translateX(42px);
-  filter:blur(1.5px);
-  transition:opacity .55s cubic-bezier(.16,1,.3,1),
-             transform .55s cubic-bezier(.16,1,.3,1),
-             filter .55s cubic-bezier(.16,1,.3,1)
+  transform:translateY(22px) scale(.95);
+  filter:blur(5px);
+  transition:opacity .65s cubic-bezier(.16,1,.3,1),
+             transform .65s cubic-bezier(.16,1,.3,1),
+             filter .65s cubic-bezier(.16,1,.3,1)
 }
-.reveal-item.in-view{opacity:1;transform:translateX(0);filter:blur(0)}
+.reveal-item.in-view{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 
 /* ---- back to top button ---- */
 .back-to-top{
@@ -434,102 +454,3 @@ body.intro-lock{overflow:hidden}
 }
 .back-to-top.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .back-to-top:hover{border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
-
-
-/* ---- click effect: short light pulse on the selected app card ---- */
-.social.card-clicked,
-.game-link.card-clicked{
-  animation:cardClickPulse .34s ease-out;
-}
-
-@keyframes cardClickPulse{
-  0%{
-    filter:brightness(1);
-    box-shadow:0 10px 28px var(--card-shadow),0 0 18px -4px var(--ring-a);
-  }
-  45%{
-    filter:brightness(1.18);
-    box-shadow:
-      0 10px 28px var(--card-shadow),
-      0 0 8px var(--ring-a),
-      0 0 28px 2px var(--ring-a);
-  }
-  100%{
-    filter:brightness(1);
-    box-shadow:0 10px 28px var(--card-shadow),0 0 18px -4px var(--ring-a);
-  }
-}
-
-@media (prefers-reduced-motion:reduce){
-  .social.card-clicked,
-  .game-link.card-clicked{animation:none}
-}
-
-
-.brand-line{display:block}
-.brand-line.accountant{font-size:.92em;margin-top:6px}
-.brand::after{
-  content:"";width:min(460px,82vw);height:1px;margin-top:18px;
-  background:linear-gradient(90deg,transparent,#7c4dff,#c77dff,#7c4dff,transparent);
-  box-shadow:0 0 10px rgba(181,108,255,.55);opacity:.85
-}
-
-
-/* ===== Rainbow border: fixed shape, colors change in place ===== */
-@property --rainbow-hue {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-.social::before,
-.game-link::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:22px;
-  padding:2px;
-  background:
-    conic-gradient(
-      from 0deg,
-      #ff1744 0deg,
-      #ff7a00 45deg,
-      #ffe600 90deg,
-      #00e676 135deg,
-      #00e5ff 180deg,
-      #2979ff 225deg,
-      #7c4dff 270deg,
-      #f500ff 315deg,
-      #ff1744 360deg
-    );
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
-  pointer-events:none;
-  z-index:0;
-  /* IMPORTANT: no transform/rotation — the frame never moves. */
-  animation:rainbowColorChange 1.15s linear infinite;
-  will-change:filter;
-}
-
-.social > *,
-.game-link > *{
-  position:relative;
-  z-index:1;
-}
-
-@keyframes rainbowColorChange{
-  from{filter:hue-rotate(0deg)}
-  to{filter:hue-rotate(360deg)}
-}
-
-body.motion-paused .social::before,
-body.motion-paused .game-link::before{
-  animation-play-state:paused;
-}
-
-@media (prefers-reduced-motion:reduce){
-  .social::before,
-  .game-link::before{animation:none}
-}
