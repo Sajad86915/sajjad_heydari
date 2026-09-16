@@ -290,14 +290,15 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   var body = document.body;
   var themeBtn = document.getElementById("theme-toggle");
   var colorBtn = document.getElementById("color-toggle");
-  if(!themeBtn && !colorBtn) return;
 
   function applyTheme(){
     var light = localStorage.getItem("site-theme") === "light";
     body.classList.toggle("light-theme", light);
     if(themeBtn){
-      themeBtn.querySelector(".hub-control-icon").textContent = light ? "☾" : "☼";
-      themeBtn.querySelector(".hub-control-text").textContent = light ? "NIGHT" : "DAY";
+      var icon = themeBtn.querySelector(".hub-control-icon");
+      var text = themeBtn.querySelector(".hub-control-text");
+      if(icon) icon.textContent = light ? "☾" : "☼";
+      if(text) text.textContent = light ? "NIGHT" : "DAY";
     }
   }
 
@@ -305,8 +306,10 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     var off = localStorage.getItem("site-color") === "off";
     body.classList.toggle("color-off", off);
     if(colorBtn){
-      colorBtn.querySelector(".hub-control-icon").textContent = off ? "○" : "◉";
-      colorBtn.querySelector(".hub-control-text").textContent = off ? "COLOR OFF" : "COLOR";
+      var icon = colorBtn.querySelector(".hub-control-icon");
+      var text = colorBtn.querySelector(".hub-control-text");
+      if(icon) icon.textContent = off ? "○" : "◉";
+      if(text) text.textContent = off ? "COLOR OFF" : "COLOR";
     }
   }
 
@@ -315,15 +318,20 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 
   if(themeBtn){
     themeBtn.addEventListener("click", function(){
-      var next = body.classList.contains("light-theme") ? "dark" : "light";
-      localStorage.setItem("site-theme", next);
+      localStorage.setItem(
+        "site-theme",
+        body.classList.contains("light-theme") ? "dark" : "light"
+      );
       applyTheme();
     });
   }
+
   if(colorBtn){
     colorBtn.addEventListener("click", function(){
-      var next = body.classList.contains("color-off") ? "on" : "off";
-      localStorage.setItem("site-color", next);
+      localStorage.setItem(
+        "site-color",
+        body.classList.contains("color-off") ? "on" : "off"
+      );
       applyColor();
     });
   }

@@ -40,6 +40,18 @@
     <div class="hub-title">SAJJAD HEYDARI</div>
     <div class="hub-subtitle">SELECT A PROFILE</div>
 
+    
+    <div class="hub-controls" aria-label="کنترل‌های سایت">
+      <button class="hub-control" id="theme-toggle" type="button" aria-label="تغییر حالت روز و شب">
+        <span class="hub-control-icon">☼</span>
+        <span class="hub-control-text">DAY / NIGHT</span>
+      </button>
+      <button class="hub-control" id="color-toggle" type="button" aria-label="توقف رنگ">
+        <span class="hub-control-icon">◉</span>
+        <span class="hub-control-text">COLOR</span>
+      </button>
+    </div>
+
     <div class="hub-grid">
       <button class="hub-card hub-2007" type="button" data-view="2007">
         <span class="hub-card-main">sajjad_heydari2007</span>
@@ -121,6 +133,15 @@
       <div class="brand compact-brand">INFO</div>
       <div class="view-label">Sajjad Heydari</div>
     </header>
+
+    <section class="section about">
+      <h2>✦ تاریخ تولد</h2>
+      <div class="info info-large">
+        <p><strong>🐖 تاریخ تولد میلادی</strong> <b>2007/10/16</b></p>
+        <p><strong>🐷 تاریخ تولد شمسی</strong> <b>1386/07/24</b></p>
+        <p><strong>🐽 تاریخ تولد قمری</strong> <b>1428/10/04</b></p>
+      </div>
+    </section>
   </main>
 
   <!-- ===== WALLET ===== -->
@@ -165,19 +186,6 @@
         <span>H = HEYDARI</span>
       </div>
     </header>
-
-    <section class="section about reveal-group">
-      <h2 class="reveal-item">✦ تاریخ تولد</h2>
-      <div class="info reveal-item" id="birthdate-info">
-        <p><strong>🎂 تاریخ تولد میلادی</strong> <b>2007/10/16</b></p>
-        <p><strong>📅 تاریخ تولد شمسی</strong> <b>1386/07/24</b></p>
-        <p><strong>🌙 تاریخ تولد قمری</strong> <b>1428/10/04</b></p>
-      </div>
-      <button type="button" id="date-color-toggle" class="date-color-toggle reveal-item">
-        <span class="date-color-toggle-icon">⏸</span>
-        <span class="date-color-toggle-text">توقف رنگ</span>
-      </button>
-    </section>
 
     <section class="section reveal-group">
       <h2 class="reveal-item">🌐 شبکه‌های خارجی</h2>
@@ -270,6 +278,10 @@
         <span class="theme-toggle-text">حالت روز</span>
       </button>
     </footer>
+  
+    <div class="bottom-back-wrap">
+      <button class="view-back bottom-back" type="button" data-back>← BACK</button>
+    </div>
   </main>
   <button id="back-to-top" class="back-to-top" type="button" aria-label="برو بالا">↑</button>
   <script src="script.js"></script>

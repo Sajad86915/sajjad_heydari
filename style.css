@@ -808,3 +808,13 @@ body.light-theme .hub-card{
 body.light-theme .hub-card-sub{color:rgba(0,0,0,.55)}
 body.light-theme .view-back{color:#111}
 body.light-theme .wallet-box{background:rgba(255,255,255,.7)}
+
+/* BACK button at the bottom of the 2007 page */
+.bottom-back-wrap{
+  display:flex;
+  justify-content:center;
+  padding:18px 0 46px;
+}
+.bottom-back{
+  min-width:145px;
+}
