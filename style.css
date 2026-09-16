@@ -113,55 +113,8 @@ body:before{
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
 .social::before,.game-link::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:20px;
-  border:1px solid var(--ring-a);
-  pointer-events:none;
-  z-index:0;
-  animation:borderRunner 2.4s linear infinite;
-  box-sizing:border-box
-}
-
-.social > *, .game-link > *{
-  position:relative;
-  z-index:1
-}
-
-@keyframes borderRunner{
-  0%,100%{
-    border-top-color:var(--ring-b);
-    border-right-color:var(--ring-a);
-    border-bottom-color:var(--ring-a);
-    border-left-color:var(--ring-a);
-    box-shadow:0 -1px 5px -2px var(--ring-b)
-  }
-  25%{
-    border-top-color:var(--ring-a);
-    border-right-color:var(--ring-b);
-    border-bottom-color:var(--ring-a);
-    border-left-color:var(--ring-a);
-    box-shadow:1px 0 5px -2px var(--ring-b)
-  }
-  50%{
-    border-top-color:var(--ring-a);
-    border-right-color:var(--ring-a);
-    border-bottom-color:var(--ring-b);
-    border-left-color:var(--ring-a);
-    box-shadow:0 1px 5px -2px var(--ring-b)
-  }
-  75%{
-    border-top-color:var(--ring-a);
-    border-right-color:var(--ring-a);
-    border-bottom-color:var(--ring-a);
-    border-left-color:var(--ring-b);
-    box-shadow:-1px 0 5px -2px var(--ring-b)
-  }
-}
-
-@media (prefers-reduced-motion:reduce){
-  .social::before,.game-link::before{animation:none}
+  content:"";position:absolute;inset:-4px;border-radius:24px;
+  border:1px solid var(--ring-a);opacity:.55;pointer-events:none
 }
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
@@ -369,6 +322,7 @@ footer{margin-top:44px}
 .profile-caption div:last-child{color:#b56cff}
 @media(max-width:560px){
   .profile-photo{width:200px;max-width:68vw}
+  .profile-caption{font-size:12px;margin-top:10px}
 }
 
 /* ---- start gate: required so mobile browsers allow the intro audio to play ---- */
@@ -482,3 +436,8 @@ body.intro-lock{overflow:hidden}
 }
 .back-to-top.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .back-to-top:hover{border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
+
+body.motion-paused .social::before,
+body.motion-paused .game-link::before{
+  animation-play-state:paused;
+}

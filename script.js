@@ -13,6 +13,7 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     frozen = !frozen;
     info.classList.toggle("color-frozen", frozen);
     btn.classList.toggle("frozen", frozen);
+    document.body.classList.toggle("motion-paused", frozen);
     icon.textContent = frozen ? "▶" : "⏸";
     text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
   });
@@ -195,22 +196,3 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
-(function(){
-  var el = document.getElementById("brand-type-text");
-  if(!el) return;
-
-  var full = "MR ACCOUNTANT";
-  var i = 0;
-
-  function typeOnce(){
-    if(i < full.length){
-      i++;
-      el.textContent = full.slice(0, i);
-      setTimeout(typeOnce, 115);
-    }else{
-      el.textContent = full;
-    }
-  }
-
-  typeOnce();
-})();
