@@ -184,7 +184,8 @@ body:before{
 .eitaa{background:linear-gradient(135deg,#f5943c,#d9640f);box-shadow:0 10px 30px rgba(245,148,60,.28)}
 .eitaa:hover{background:linear-gradient(135deg,#ffa855,#ea741c)}
 .eitaa .icon,.bale .icon,.igap .icon,.soroush .icon,.gap .icon,.shad .icon{background:#fff}
-.eitaa .icon img,.bale .icon img,.igap .icon img,.soroush .icon img,.gap .icon img,.shad .icon img{width:30px;height:30px}
+.eitaa .icon img{width:40px;height:40px;object-fit:contain;opacity:1;filter:none;display:block;border-radius:4px}
+.bale .icon img,.igap .icon img,.soroush .icon img,.gap .icon img,.shad .icon img{width:30px;height:30px}
 
 .bale{background:linear-gradient(135deg,#1fb6c9,#1666b0);box-shadow:0 10px 30px rgba(31,182,201,.26)}
 .bale:hover{background:linear-gradient(135deg,#33c9dc,#1c75c9)}
@@ -533,50 +534,3 @@ body.motion-paused .game-link::before{
   .social::before,
   .game-link::before{animation:none}
 }
-
-
-/* ===== Profile menu / four profiles ===== */
-.profile-menu-wrap{display:none;width:min(680px,100%);text-align:center}
-#intro-screen.menu-ready .intro-inner{justify-content:flex-start;padding-top:8vh}
-#intro-screen.menu-ready .intro-ring,#intro-screen.menu-ready .intro-brand,#intro-screen.menu-ready .intro-words{display:none}
-#intro-screen.menu-ready .profile-menu-wrap{display:block}
-.menu-title{font-family:"Cinzel",serif;font-size:clamp(25px,7vw,40px);font-weight:700;letter-spacing:3px;background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;margin-bottom:6px}
-.menu-subtitle{font-size:11px;letter-spacing:4px;color:#9b9ca5;margin-bottom:18px}
-.menu-grid{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;direction:ltr}
-.menu-choice{width:min(205px,39vw);aspect-ratio:1;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.045);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-family:inherit;box-shadow:0 14px 40px rgba(0,0,0,.25);transition:transform .25s ease,border-color .25s ease,background .25s ease;justify-self:center;opacity:0}
-.menu-choice:hover{transform:translateY(-5px) scale(1.02);background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.3)}
-.menu-circle{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font-family:"Cinzel",serif;font-size:18px;font-weight:700;border:2px solid transparent;background:linear-gradient(#101116,#101116) padding-box,linear-gradient(135deg,#ff3b3b,#ff9d3b,#f4e04d,#3ddc84,#3bb0ff,#7c5cff,#ff3bcf) border-box;box-shadow:0 0 28px rgba(181,108,255,.2)}
-.choice-main .menu-circle{color:#d8b25b}.choice-alt .menu-circle{color:#3bb0ff}.choice-info .menu-circle{color:#3ddc84}.choice-wallet .menu-circle{color:#ff9d3b}
-.menu-choice-title{font-size:clamp(11px,3vw,16px);font-weight:800;direction:ltr;text-align:center;word-break:break-word;padding:0 8px}
-.menu-controls{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
-.menu-controls .theme-toggle,.menu-controls .date-color-toggle{margin-top:0}
-#intro-screen.menu-ready .menu-choice{animation-duration:.72s;animation-timing-function:cubic-bezier(.16,1,.3,1);animation-fill-mode:forwards}
-#intro-screen.menu-ready .menu-choice:nth-child(1){animation-name:menuFromLeft;animation-delay:.08s}
-#intro-screen.menu-ready .menu-choice:nth-child(2){animation-name:menuFromRight;animation-delay:.18s}
-#intro-screen.menu-ready .menu-choice:nth-child(3){animation-name:menuFromLeft;animation-delay:.28s}
-#intro-screen.menu-ready .menu-choice:nth-child(4){animation-name:menuFromRight;animation-delay:.38s}
-@keyframes menuFromLeft{from{opacity:0;transform:translateX(-110vw) scale(.78)}to{opacity:1;transform:translateX(0) scale(1)}}
-@keyframes menuFromRight{from{opacity:0;transform:translateX(110vw) scale(.78)}to{opacity:1;transform:translateX(0) scale(1)}}
-.extra-panel{width:min(720px,92%);margin:auto;padding:34px 0 44px;text-align:center;min-height:100vh}
-.extra-panel[hidden],#main-panel[hidden]{display:none}
-.panel-back{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:10px 18px;font-family:"Cinzel",sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:.25s ease;margin-bottom:26px}
-.panel-title{font-family:"Cinzel",serif;font-size:clamp(25px,7vw,42px);font-weight:700;letter-spacing:2px;background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:26px;direction:ltr}
-.profile-links{display:grid;grid-template-columns:1fr;gap:12px;direction:ltr}
-.profile-links .social{min-height:70px;justify-content:flex-start;padding:12px 16px}
-.profile-links .social .arrow{margin-left:auto}
-.profile-links .game-link.steam{min-height:70px;justify-content:flex-start;padding:12px 16px}
-.profile-links .game-link.steam span:last-child{margin-left:auto}
-.panel-card{display:grid;gap:0;padding:12px 20px;border:1px solid rgba(216,178,91,.25);border-radius:24px;background:rgba(255,255,255,.045);box-shadow:0 15px 40px rgba(0,0,0,.24);font-size:15px}
-.panel-card div{padding:15px 8px;border-bottom:1px solid rgba(255,255,255,.07);line-height:1.9}.panel-card div:last-child{border-bottom:0}
-.panel-card strong{display:block;margin-top:3px;color:#d8b25b;direction:ltr;word-break:break-all}.wallet-card strong{font-family:monospace;font-size:15px;letter-spacing:.4px}
-body.light #intro-screen{background:radial-gradient(circle at 50% 20%,rgba(181,108,255,.10),transparent 48%),linear-gradient(180deg,#f6f5f9 0%,#fff 100%)}
-body.light .menu-subtitle{color:#6b6c76}body.light .menu-choice{color:#1c1c22;background:rgba(0,0,0,.035);border-color:rgba(0,0,0,.10)}
-body.light .menu-choice:hover{background:rgba(181,108,255,.10)}
-@media(max-width:560px){.menu-grid{gap:12px}.menu-choice{width:min(175px,42vw)}.menu-circle{width:58px;height:58px;font-size:16px}.menu-choice-title{font-size:11px}.profile-links .social,.profile-links .game-link.steam{min-height:68px}}
-/* Global stop button pauses every color animation used by all profiles. */
-body.motion-paused .social::before,body.motion-paused .game-link::before,body.motion-paused #birthdate-info b{animation-play-state:paused!important}
-
-
-/* Loading progress bar */
-.start-progress{display:block;width:min(260px,58vw);height:4px;border-radius:99px;background:rgba(255,255,255,.10);overflow:hidden}
-#start-progress-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ff3b3b,#ff9d3b,#f4e04d,#3ddc84,#3bb0ff,#7c5cff,#ff3bcf);transition:width .08s linear}
