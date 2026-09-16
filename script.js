@@ -22,19 +22,20 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 });
 
 (function(){
-  var btn = document.getElementById("date-color-toggle");
-  var info = document.getElementById("birthdate-info");
-  if(!btn || !info) return;
+  var btn = document.getElementById("global-color-toggle");
+  if(!btn) return;
   var icon = btn.querySelector(".date-color-toggle-icon");
   var text = btn.querySelector(".date-color-toggle-text");
   var frozen = false;
+
   btn.addEventListener("click", function(){
     frozen = !frozen;
-    info.classList.toggle("color-frozen", frozen);
-    btn.classList.toggle("frozen", frozen);
     document.body.classList.toggle("motion-paused", frozen);
-    icon.textContent = frozen ? "▶" : "⏸";
-    text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
+    var info = document.getElementById("birthdate-info");
+    if(info) info.classList.toggle("color-frozen", frozen);
+    btn.classList.toggle("frozen", frozen);
+    if(icon) icon.textContent = frozen ? "▶" : "⏸";
+    if(text) text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
   });
 })();
 
