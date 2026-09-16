@@ -194,3 +194,31 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     window.scrollTo({ top:0, behavior:"smooth" });
   });
 })();
+
+(function(){
+  var el = document.getElementById("brand-type-text");
+  if(!el) return;
+  var full = "MR A.S.H";
+  var i = 0, deleting = false;
+
+  function tick(){
+    if(!deleting){
+      i++;
+      el.textContent = full.slice(0, i);
+      if(i === full.length){
+        setTimeout(function(){ deleting = true; tick(); }, 1600);
+        return;
+      }
+    }else{
+      i--;
+      el.textContent = full.slice(0, i);
+      if(i === 0){
+        deleting = false;
+        setTimeout(tick, 500);
+        return;
+      }
+    }
+    setTimeout(tick, deleting ? 55 : 115);
+  }
+  tick();
+})();

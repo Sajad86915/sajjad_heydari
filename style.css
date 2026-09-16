@@ -51,9 +51,17 @@ body:before{
 .hero{margin-bottom:38px}
 .brand{
   font-family:"Cinzel",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
+  display:inline-flex;align-items:baseline
+}
+.brand-text{
   background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
   text-shadow:0 0 24px rgba(216,178,91,.18)
 }
+.brand-cursor{
+  color:#d8b25b;margin-right:3px;font-weight:400;
+  animation:brandCursorBlink .9s step-end infinite
+}
+@keyframes brandCursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 .meaning{margin:13px 0 11px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;font-size:15px;color:var(--text)}
 .username{color:#d8b25b;text-decoration:none;font-size:16px}
 .bio{
@@ -105,26 +113,27 @@ body:before{
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
 .social::before,.game-link::before{
-  content:"";position:absolute;inset:-5px;border-radius:24px;
-  border:1.2px solid var(--ring-a);opacity:.6;pointer-events:none
+  content:"";position:absolute;top:6%;bottom:6%;left:-1.5px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,
+    transparent 0%, var(--ring-a) 18%, #ffffff 50%, var(--ring-b) 82%, transparent 100%);
+  background-size:100% 300%;
+  filter:drop-shadow(0 0 4px var(--ring-a));
+  animation:sideGlow 2.6s linear infinite;
+  opacity:.9;pointer-events:none
 }
 .social::after,.game-link::after{
-  content:"";position:absolute;inset:-5px;border-radius:24px;
-  padding:1.6px;
-  background:conic-gradient(from 0deg,
-    transparent 0deg, transparent 248deg,
-    var(--ring-a) 276deg,
-    var(--ring-b) 312deg,
-    var(--ring-a) 348deg,
-    transparent 360deg);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  filter:drop-shadow(0 0 5px var(--ring-b));
-  animation:cardRingSpin 3.8s linear infinite;
-  pointer-events:none
+  content:"";position:absolute;top:6%;bottom:6%;right:-1.5px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,
+    transparent 0%, var(--ring-b) 18%, #ffffff 50%, var(--ring-a) 82%, transparent 100%);
+  background-size:100% 300%;
+  filter:drop-shadow(0 0 4px var(--ring-b));
+  animation:sideGlow 2.6s linear infinite reverse;
+  opacity:.9;pointer-events:none
 }
-@keyframes cardRingSpin{to{transform:rotate(360deg)}}
+@keyframes sideGlow{
+  0%{background-position:0% 0%}
+  100%{background-position:0% 200%}
+}
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
   width:46px;height:46px;flex:0 0 46px;border-radius:15px;display:grid;place-items:center;
