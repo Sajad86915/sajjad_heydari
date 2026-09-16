@@ -96,12 +96,35 @@ body:before{
 .date-color-toggle.frozen{border-color:rgba(216,178,91,.55);color:#d8b25b}
 .links{display:grid;gap:12px}
 .social,.game-link{
+  position:relative;
   width:100%;min-height:70px;padding:12px 16px;border-radius:20px;
   display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
   background:var(--card-bg);border:1px solid var(--card-border);
   box-shadow:0 10px 28px var(--card-shadow);transition:.2s ease;
-  direction:ltr;text-align:left
+  direction:ltr;text-align:left;
+  --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
+.social::before,.game-link::before{
+  content:"";position:absolute;inset:-5px;border-radius:24px;
+  border:1.2px solid var(--ring-a);opacity:.6;pointer-events:none
+}
+.social::after,.game-link::after{
+  content:"";position:absolute;inset:-5px;border-radius:24px;
+  padding:1.6px;
+  background:conic-gradient(from 0deg,
+    transparent 0deg, transparent 248deg,
+    var(--ring-a) 276deg,
+    var(--ring-b) 312deg,
+    var(--ring-a) 348deg,
+    transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  filter:drop-shadow(0 0 5px var(--ring-b));
+  animation:cardRingSpin 3.8s linear infinite;
+  pointer-events:none
+}
+@keyframes cardRingSpin{to{transform:rotate(360deg)}}
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
   width:46px;height:46px;flex:0 0 46px;border-radius:15px;display:grid;place-items:center;
@@ -188,6 +211,28 @@ body:before{
 
 .shad{background:linear-gradient(135deg,#1fa551,#0d7a37);box-shadow:0 10px 30px rgba(31,165,81,.26)}
 .shad:hover{background:linear-gradient(135deg,#26bd5e,#0f8c40)}
+
+/* ---- per-brand rotating ring colors (steady base + moving highlight) ---- */
+.telegram{--ring-a:rgba(34,158,217,.4);--ring-b:#8ed9ff}
+.instagram{--ring-a:rgba(193,53,132,.4);--ring-b:#ffb37a}
+.facebook{--ring-a:rgba(24,119,242,.4);--ring-b:#8fc2ff}
+.youtube{--ring-a:rgba(255,0,0,.4);--ring-b:#ff9a9a}
+.snapchat{--ring-a:rgba(180,175,0,.4);--ring-b:#fffb8a}
+.discord{--ring-a:rgba(88,101,242,.4);--ring-b:#c3c9ff}
+.xtwitter{--ring-a:rgba(255,255,255,.3);--ring-b:#9a9a9a}
+.tiktok{--ring-a:rgba(37,244,238,.4);--ring-b:#fe2c55}
+.spotify{--ring-a:rgba(29,185,84,.4);--ring-b:#b9ffce}
+.github{--ring-a:rgba(255,255,255,.28);--ring-b:#9a9a9a}
+.rubika{--ring-a:rgba(74,127,224,.4);--ring-b:#f0a03c}
+.eitaa{--ring-a:rgba(245,148,60,.4);--ring-b:#ffd9a8}
+.bale{--ring-a:rgba(31,182,201,.4);--ring-b:#1666b0}
+.igap{--ring-a:rgba(41,168,76,.4);--ring-b:#e3ff8a}
+.soroush{--ring-a:rgba(63,123,245,.4);--ring-b:#bcd4ff}
+.gap{--ring-a:rgba(124,79,224,.4);--ring-b:#1fd7a6}
+.shad{--ring-a:rgba(31,165,81,.4);--ring-b:#ffd24d}
+.steam{--ring-a:rgba(102,192,244,.4);--ring-b:#1b2838}
+.epic{--ring-a:rgba(255,255,255,.28);--ring-b:#9a9a9a}
+.game-link.clash{--ring-a:rgba(242,161,29,.4);--ring-b:#ffe6a8}
 
 .game-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .steam{background:linear-gradient(135deg,#1b2838,#0e141b);border-color:rgba(102,192,244,.35);box-shadow:0 10px 30px rgba(27,40,56,.4);color:#fff}
@@ -374,11 +419,16 @@ body.intro-lock{overflow:hidden}
 }
 
 /* ---- scroll-reveal for sections ---- */
-.reveal{
-  opacity:0;transform:translateY(26px);
-  transition:opacity .7s ease,transform .7s ease
+.reveal-group{position:relative}
+.reveal-item{
+  opacity:0;
+  transform:translateY(22px) scale(.95);
+  filter:blur(5px);
+  transition:opacity .65s cubic-bezier(.16,1,.3,1),
+             transform .65s cubic-bezier(.16,1,.3,1),
+             filter .65s cubic-bezier(.16,1,.3,1)
 }
-.reveal.in-view{opacity:1;transform:translateY(0)}
+.reveal-item.in-view{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 
 /* ---- back to top button ---- */
 .back-to-top{
