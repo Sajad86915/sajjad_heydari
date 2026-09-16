@@ -42,60 +42,129 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   var startGate = document.getElementById("start-gate");
   var startBtn = document.getElementById("start-btn");
   var intro = document.getElementById("intro-screen");
-  if(!intro){ if(startGate) startGate.remove(); return; }
+  var hub = document.getElementById("profile-hub");
+  var audio = document.getElementById("intro-audio");
+  if(!intro) return;
 
   document.body.classList.add("intro-lock");
-  var audio = document.getElementById("intro-audio");
-  var done = false;
+  var finished = false;
 
-  function hideIntro(){
-    if(done) return;
-    done = true;
+  function showHub(){
+    if(finished) return;
+    finished = true;
     intro.classList.add("hide");
     document.body.classList.remove("intro-lock");
+    if(startGate) startGate.classList.add("hide");
+    if(hub) {
+      hub.hidden = false;
+      hub.classList.add("hub-visible");
+    }
   }
 
   function beginIntro(){
     intro.classList.add("show");
+
     if(audio){
       audio.currentTime = 0;
       audio.volume = 1;
+
       var playAttempt = audio.play();
-      if(playAttempt && playAttempt.catch){ playAttempt.catch(function(){}); }
-      audio.addEventListener("ended", function(){ setTimeout(hideIntro, 250); });
+      if(playAttempt && playAttempt.catch){
+        playAttempt.catch(function(){});
+      }
+
+      audio.addEventListener("ended", function(){
+        setTimeout(showHub, 350);
+      }, {once:true});
     }
-    setTimeout(hideIntro, 4700);
+
+    /* Fallback: if the browser cannot report audio duration/ended,
+       the hub still appears after the intro animation. */
+    setTimeout(function(){
+      if(!finished) showHub();
+    }, 5200);
   }
 
   if(startBtn){
     var clickText = startBtn.querySelector(".start-click-text");
     var counterEl = startBtn.querySelector(".start-loading-count");
+
     startBtn.addEventListener("click", function(){
       if(clickText) clickText.hidden = true;
       if(counterEl) counterEl.hidden = false;
 
-      var duration = 1200;
+      var duration = 1600;
       var startTime = null;
 
       function step(ts){
         if(startTime === null) startTime = ts;
         var progress = Math.min(1, (ts - startTime) / duration);
         var value = Math.round(progress * 100);
+
         if(counterEl) counterEl.firstChild.textContent = value;
+
         if(progress < 1){
           requestAnimationFrame(step);
         }else{
+          /* The counter stays visibly at 100% before the intro starts. */
           setTimeout(function(){
             if(startGate) startGate.classList.add("hide");
             beginIntro();
-          }, 220);
+          }, 300);
         }
       }
+
       requestAnimationFrame(step);
-    }, { once:true });
+    }, {once:true});
   }else{
     beginIntro();
   }
+})();
+
+(function(){
+  var hub = document.getElementById("profile-hub");
+  var views = {
+    "2007": document.getElementById("view-2007"),
+    "1386": document.getElementById("view-1386"),
+    "info": document.getElementById("view-info"),
+    "wallet": document.getElementById("view-wallet")
+  };
+
+  if(!hub) return;
+
+  function openView(name){
+    Object.keys(views).forEach(function(key){
+      if(views[key]) views[key].hidden = key !== name;
+    });
+
+    hub.hidden = true;
+    window.scrollTo({top:0, behavior:"instant"});
+
+    var selected = views[name];
+    if(selected){
+      selected.classList.add("view-enter");
+      setTimeout(function(){ selected.classList.remove("view-enter"); }, 550);
+    }
+  }
+
+  function goBack(){
+    Object.keys(views).forEach(function(key){
+      if(views[key]) views[key].hidden = true;
+    });
+    hub.hidden = false;
+    hub.classList.add("hub-visible");
+    window.scrollTo({top:0, behavior:"instant"});
+  }
+
+  hub.querySelectorAll("[data-view]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      openView(btn.getAttribute("data-view"));
+    });
+  });
+
+  document.querySelectorAll("[data-back]").forEach(function(btn){
+    btn.addEventListener("click", goBack);
+  });
 })();
 
 (function(){
