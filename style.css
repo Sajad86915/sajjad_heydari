@@ -108,31 +108,13 @@ body:before{
   width:100%;min-height:70px;padding:12px 16px;border-radius:20px;
   display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
   background:var(--card-bg);border:1px solid var(--card-border);
-  box-shadow:0 10px 28px var(--card-shadow);transition:.2s ease;
+  box-shadow:0 10px 28px var(--card-shadow),0 0 18px -4px var(--ring-a);transition:.2s ease;
   direction:ltr;text-align:left;
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
 .social::before,.game-link::before{
-  content:"";position:absolute;top:6%;bottom:6%;left:-1.5px;width:3px;border-radius:3px;
-  background:linear-gradient(180deg,
-    transparent 0%, var(--ring-a) 18%, #ffffff 50%, var(--ring-b) 82%, transparent 100%);
-  background-size:100% 300%;
-  filter:drop-shadow(0 0 4px var(--ring-a));
-  animation:sideGlow 2.6s linear infinite;
-  opacity:.9;pointer-events:none
-}
-.social::after,.game-link::after{
-  content:"";position:absolute;top:6%;bottom:6%;right:-1.5px;width:3px;border-radius:3px;
-  background:linear-gradient(180deg,
-    transparent 0%, var(--ring-b) 18%, #ffffff 50%, var(--ring-a) 82%, transparent 100%);
-  background-size:100% 300%;
-  filter:drop-shadow(0 0 4px var(--ring-b));
-  animation:sideGlow 2.6s linear infinite reverse;
-  opacity:.9;pointer-events:none
-}
-@keyframes sideGlow{
-  0%{background-position:0% 0%}
-  100%{background-position:0% 200%}
+  content:"";position:absolute;inset:-4px;border-radius:24px;
+  border:1px solid var(--ring-a);opacity:.55;pointer-events:none
 }
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
