@@ -732,3 +732,79 @@ body.motion-paused .game-link::before{
   .wallet-row{align-items:flex-start;flex-direction:column;gap:7px}
   .wallet-row strong{font-size:13px}
 }
+
+/* ===== Global controls on the four-option home ===== */
+.hub-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:24px;
+  flex-wrap:wrap;
+}
+.hub-control{
+  min-width:112px;
+  border:1px solid var(--card-border);
+  background:var(--card-bg);
+  color:var(--text);
+  border-radius:999px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.4px;
+  transition:.25s ease;
+  backdrop-filter:blur(12px);
+}
+.hub-control:hover{
+  transform:translateY(-2px);
+  border-color:rgba(216,178,91,.55);
+}
+.hub-control-icon{font-size:15px;line-height:1}
+.hub-control-text{white-space:nowrap}
+
+.app-icon{
+  width:34px;height:34px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:17px;
+  color:#fff;
+  box-shadow:inset 0 0 10px rgba(255,255,255,.12),0 4px 12px rgba(0,0,0,.2);
+}
+.app-rubika{background:linear-gradient(135deg,#9b36ff,#e25cff)}
+.app-eitaa{background:linear-gradient(135deg,#20a4f3,#0077c8)}
+.app-bale{background:linear-gradient(135deg,#18a9ff,#0878d1)}
+.app-igap{background:linear-gradient(135deg,#ff9a35,#e94a21)}
+.app-soroush{background:linear-gradient(135deg,#00b7a8,#007c74)}
+.app-gap{background:linear-gradient(135deg,#ff4b72,#9b2451)}
+
+body.color-off,
+body.color-off *{
+  --accent:#d8d8d8 !important;
+  --accent-2:#bdbdbd !important;
+}
+body.color-off{
+  filter:grayscale(1);
+}
+body.color-off .hub-card::before{animation:none}
+body.color-off .hub-card:hover{box-shadow:0 20px 48px rgba(0,0,0,.38)}
+body.light-theme{
+  --bg:#f2f2f2;
+  --text:#161616;
+  --muted:#5d5d5d;
+  --card-bg:rgba(255,255,255,.72);
+  --card-border:rgba(0,0,0,.13);
+  --shadow:rgba(0,0,0,.12);
+}
+body.light-theme .hub-card{
+  background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.96),rgba(255,255,255,.58) 50%,rgba(220,220,220,.38) 100%);
+  color:#111;
+  border-color:rgba(0,0,0,.12);
+}
+body.light-theme .hub-card-sub{color:rgba(0,0,0,.55)}
+body.light-theme .view-back{color:#111}
+body.light-theme .wallet-box{background:rgba(255,255,255,.7)}
