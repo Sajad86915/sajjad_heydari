@@ -198,27 +198,19 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 (function(){
   var el = document.getElementById("brand-type-text");
   if(!el) return;
-  var full = "MR A.S.H";
-  var i = 0, deleting = false;
 
-  function tick(){
-    if(!deleting){
+  var full = "MR ACCOUNTANT";
+  var i = 0;
+
+  function typeOnce(){
+    if(i < full.length){
       i++;
       el.textContent = full.slice(0, i);
-      if(i === full.length){
-        setTimeout(function(){ deleting = true; tick(); }, 1600);
-        return;
-      }
+      setTimeout(typeOnce, 115);
     }else{
-      i--;
-      el.textContent = full.slice(0, i);
-      if(i === 0){
-        deleting = false;
-        setTimeout(tick, 500);
-        return;
-      }
+      el.textContent = full;
     }
-    setTimeout(tick, deleting ? 55 : 115);
   }
-  tick();
+
+  typeOnce();
 })();

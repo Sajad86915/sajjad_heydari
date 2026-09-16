@@ -113,8 +113,49 @@ body:before{
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
 .social::before,.game-link::before{
-  content:"";position:absolute;inset:-4px;border-radius:24px;
-  border:1px solid var(--ring-a);opacity:.55;pointer-events:none
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:22px;
+  border:1px solid var(--ring-a);
+  opacity:.45;
+  pointer-events:none;
+  z-index:0
+}
+
+.social::after,.game-link::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:22px;
+  padding:1.5px;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0deg 300deg,
+    var(--ring-a) 316deg,
+    var(--ring-b) 332deg,
+    #fff 338deg,
+    var(--ring-b) 344deg,
+    var(--ring-a) 354deg,
+    transparent 360deg
+  );
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  filter:drop-shadow(0 0 4px var(--ring-a));
+  animation:cardRingSpin 2.8s linear infinite;
+  pointer-events:none;
+  z-index:0
+}
+
+.social > *, .game-link > *{
+  position:relative;
+  z-index:1
+}
+
+@keyframes cardRingSpin{
+  to{transform:rotate(360deg)}
 }
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
@@ -322,7 +363,6 @@ footer{margin-top:44px}
 .profile-caption div:last-child{color:#b56cff}
 @media(max-width:560px){
   .profile-photo{width:200px;max-width:68vw}
-  .profile-caption{font-size:12px;margin-top:10px}
 }
 
 /* ---- start gate: required so mobile browsers allow the intro audio to play ---- */
