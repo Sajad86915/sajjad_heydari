@@ -470,3 +470,39 @@ body.motion-paused .game-link::before{
   .social.card-clicked,
   .game-link.card-clicked{animation:none}
 }
+
+/* Fast thin rainbow runner around every app card */
+.social::before,.game-link::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:21px;
+  padding:2px;
+  background:conic-gradient(
+    from 0deg,
+    #ff1744 0deg,
+    #ff9100 45deg,
+    #ffea00 90deg,
+    #00e676 135deg,
+    #00e5ff 180deg,
+    #2979ff 225deg,
+    #7c4dff 270deg,
+    #f500ff 315deg,
+    #ff1744 360deg
+  );
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:0;
+  animation:rainbowCardRunner .8s linear infinite;
+  will-change:transform;
+}
+.social > *, .game-link > *{
+  position:relative;
+  z-index:1;
+}
+@keyframes rainbowCardRunner{
+  to{transform:rotate(360deg)}
+}
