@@ -1,3 +1,22 @@
+
+(function(){
+  var cards = document.querySelectorAll(".social, .game-link");
+  if(!cards.length) return;
+
+  cards.forEach(function(card){
+    card.addEventListener("pointerdown", function(){
+      card.classList.remove("card-clicked");
+      void card.offsetWidth; // restart the short animation
+      card.classList.add("card-clicked");
+
+      clearTimeout(card._clickPulseTimer);
+      card._clickPulseTimer = setTimeout(function(){
+        card.classList.remove("card-clicked");
+      }, 380);
+    }, {passive:true});
+  });
+})();
+
 document.querySelectorAll("a[target='_blank']").forEach(a=>{
   a.addEventListener("click",()=>{});
 });
