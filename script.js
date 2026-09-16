@@ -1,3 +1,22 @@
+
+(function(){
+  var cards = document.querySelectorAll(".social, .game-link");
+  if(!cards.length) return;
+
+  cards.forEach(function(card){
+    card.addEventListener("pointerdown", function(){
+      card.classList.remove("card-clicked");
+      void card.offsetWidth; // restart the short animation
+      card.classList.add("card-clicked");
+
+      clearTimeout(card._clickPulseTimer);
+      card._clickPulseTimer = setTimeout(function(){
+        card.classList.remove("card-clicked");
+      }, 380);
+    }, {passive:true});
+  });
+})();
+
 document.querySelectorAll("a[target='_blank']").forEach(a=>{
   a.addEventListener("click",()=>{});
 });
@@ -13,6 +32,7 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     frozen = !frozen;
     info.classList.toggle("color-frozen", frozen);
     btn.classList.toggle("frozen", frozen);
+    document.body.classList.toggle("motion-paused", frozen);
     icon.textContent = frozen ? "▶" : "⏸";
     text.textContent = frozen ? "متحرک کردن رنگ" : "توقف رنگ";
   });
@@ -195,30 +215,3 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
-(function(){
-  var el = document.getElementById("brand-type-text");
-  if(!el) return;
-  var full = "MR A.S.H";
-  var i = 0, deleting = false;
-
-  function tick(){
-    if(!deleting){
-      i++;
-      el.textContent = full.slice(0, i);
-      if(i === full.length){
-        setTimeout(function(){ deleting = true; tick(); }, 1600);
-        return;
-      }
-    }else{
-      i--;
-      el.textContent = full.slice(0, i);
-      if(i === 0){
-        deleting = false;
-        setTimeout(tick, 500);
-        return;
-      }
-    }
-    setTimeout(tick, deleting ? 55 : 115);
-  }
-  tick();
-})();
