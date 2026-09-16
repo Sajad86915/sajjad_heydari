@@ -51,7 +51,8 @@ body:before{
 .hero{margin-bottom:38px}
 .brand{
   font-family:"Cinzel",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
-  display:inline-flex;align-items:baseline
+  display:flex;flex-direction:column;align-items:center;line-height:.98;
+  margin-top:4px;
 }
 .brand-text{
   background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
@@ -112,10 +113,7 @@ body:before{
   direction:ltr;text-align:left;
   --ring-a:rgba(181,108,255,.35);--ring-b:#e2c8ff
 }
-.social::before,.game-link::before{
-  content:"";position:absolute;inset:-4px;border-radius:24px;
-  border:1px solid var(--ring-a);opacity:.55;pointer-events:none
-}
+
 .social:hover,.game-link:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 .icon{
   width:46px;height:46px;flex:0 0 46px;border-radius:15px;display:grid;place-items:center;
@@ -437,10 +435,6 @@ body.intro-lock{overflow:hidden}
 .back-to-top.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .back-to-top:hover{border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
 
-body.motion-paused .social::before,
-body.motion-paused .game-link::before{
-  animation-play-state:paused;
-}
 
 /* ---- click effect: short light pulse on the selected app card ---- */
 .social.card-clicked,
@@ -471,38 +465,50 @@ body.motion-paused .game-link::before{
   .game-link.card-clicked{animation:none}
 }
 
-/* Fast thin rainbow runner around every app card */
+}
+
+.brand-line{display:block}
+.brand-line.accountant{font-size:.92em;margin-top:6px}
+.brand::after{
+  content:"";width:min(460px,82vw);height:1px;margin-top:18px;
+  background:linear-gradient(90deg,transparent,#7c4dff,#c77dff,#7c4dff,transparent);
+  box-shadow:0 0 10px rgba(181,108,255,.55);opacity:.85
+}
+
+/* Rainbow flowing border — the card shape stays perfectly still */
+@property --rainbow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 .social::before,.game-link::before{
   content:"";
   position:absolute;
-  inset:-1px;
-  border-radius:21px;
+  inset:-2px;
+  border-radius:22px;
   padding:2px;
-  background:conic-gradient(
-    from 0deg,
+  background:conic-gradient(from var(--rainbow-angle),
     #ff1744 0deg,
-    #ff9100 45deg,
-    #ffea00 90deg,
+    #ff7a00 45deg,
+    #ffe600 90deg,
     #00e676 135deg,
     #00e5ff 180deg,
     #2979ff 225deg,
     #7c4dff 270deg,
     #f500ff 315deg,
-    #ff1744 360deg
-  );
+    #ff1744 360deg);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
   pointer-events:none;
   z-index:0;
-  animation:rainbowCardRunner .8s linear infinite;
-  will-change:transform;
+  animation:rainbowFlow .9s linear infinite;
 }
-.social > *, .game-link > *{
-  position:relative;
-  z-index:1;
-}
-@keyframes rainbowCardRunner{
-  to{transform:rotate(360deg)}
+@keyframes rainbowFlow{to{--rainbow-angle:360deg}}
+.social > *, .game-link > *{position:relative;z-index:1}
+body.motion-paused .social::before,
+body.motion-paused .game-link::before{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+  .social::before,.game-link::before{animation:none}
 }
