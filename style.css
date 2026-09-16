@@ -184,7 +184,7 @@ body:before{
 .eitaa{background:linear-gradient(135deg,#f5943c,#d9640f);box-shadow:0 10px 30px rgba(245,148,60,.28)}
 .eitaa:hover{background:linear-gradient(135deg,#ffa855,#ea741c)}
 .eitaa .icon,.bale .icon,.igap .icon,.soroush .icon,.gap .icon,.shad .icon{background:#fff}
-.eitaa .icon img{width:36px;height:36px;object-fit:contain;opacity:1;filter:none;display:block}
+.eitaa .icon img{width:40px;height:40px;object-fit:contain;opacity:1;filter:none;display:block;border-radius:4px}
 .bale .icon img,.igap .icon img,.soroush .icon img,.gap .icon img,.shad .icon img{width:30px;height:30px}
 
 .bale{background:linear-gradient(135deg,#1fb6c9,#1666b0);box-shadow:0 10px 30px rgba(31,182,201,.26)}
