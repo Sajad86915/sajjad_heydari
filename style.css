@@ -825,3 +825,40 @@ body.color-off .app-icon{
 
 /* 1386 links must stay visible */
 .view-1386 .social{color:var(--site-text) !important;}
+
+/* ===== Personal identity hub: three vertical circles ===== */
+.hub-grid{
+  width:min(430px,92vw);
+  margin-top:38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+.hub-card{
+  width:min(230px,62vw);
+  height:min(230px,62vw);
+  min-width:170px;
+  min-height:170px;
+}
+.hub-card-main{font-size:clamp(12px,2.8vw,17px)}
+.hub-card-sub{
+  font-size:11px;
+  letter-spacing:4px;
+}
+.hub-1386{box-shadow:0 14px 38px rgba(34,158,217,.16),inset 0 0 30px rgba(34,158,217,.07)}
+.hub-2007{box-shadow:0 14px 38px rgba(181,108,255,.16),inset 0 0 30px rgba(181,108,255,.08)}
+.hub-info{box-shadow:0 14px 38px rgba(216,178,91,.16),inset 0 0 30px rgba(216,178,91,.07)}
+
+@media(max-width:560px){
+  .hub-grid{gap:16px;margin-top:28px}
+  .hub-card{
+    width:57vw;
+    height:57vw;
+    min-width:165px;
+    min-height:165px;
+    max-width:215px;
+    max-height:215px;
+  }
+  .hub-card-main{font-size:11px}
+}
