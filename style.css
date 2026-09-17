@@ -575,10 +575,10 @@ body.motion-paused .game-link::before{
 .hub-grid{
   width:min(520px,92vw);
   margin-top:42px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:26px;
-  justify-items:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
 }
 .hub-card{
   position:relative;
@@ -826,39 +826,36 @@ body.color-off .app-icon{
 /* 1386 links must stay visible */
 .view-1386 .social{color:var(--site-text) !important;}
 
-/* ===== Personal identity hub: three vertical circles ===== */
-.hub-grid{
-  width:min(430px,92vw);
-  margin-top:38px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
-}
-.hub-card{
-  width:min(230px,62vw);
-  height:min(230px,62vw);
-  min-width:170px;
-  min-height:170px;
-}
-.hub-card-main{font-size:clamp(12px,2.8vw,17px)}
-.hub-card-sub{
-  font-size:11px;
-  letter-spacing:4px;
-}
-.hub-1386{box-shadow:0 14px 38px rgba(34,158,217,.16),inset 0 0 30px rgba(34,158,217,.07)}
-.hub-2007{box-shadow:0 14px 38px rgba(181,108,255,.16),inset 0 0 30px rgba(181,108,255,.08)}
-.hub-info{box-shadow:0 14px 38px rgba(216,178,91,.16),inset 0 0 30px rgba(216,178,91,.07)}
 
-@media(max-width:560px){
-  .hub-grid{gap:16px;margin-top:28px}
-  .hub-card{
-    width:57vw;
-    height:57vw;
-    min-width:165px;
-    min-height:165px;
-    max-width:215px;
-    max-height:215px;
-  }
-  .hub-card-main{font-size:11px}
+/* LIGHT THEME: keep gold accents readable on white backgrounds */
+body.light-theme .brand-text,
+body.light-theme .compact-brand,
+body.light-theme .hub-title{
+  background:linear-gradient(90deg,#4f3a08,#8a6a16,#4f3a08);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:none;
 }
+body.light-theme .brand-cursor,
+body.light-theme .username,
+body.light-theme .section h2,
+body.light-theme .game-note,
+body.light-theme .profile-caption div:first-child{
+  color:#70550b !important;
+  text-shadow:none;
+}
+body.light-theme .intro-word:nth-child(even){color:#70550b;text-shadow:none}
+body.light-theme .bio{color:#654b0a;text-shadow:none;border-bottom-color:rgba(101,75,10,.35)}
+body.light-theme .view-label{color:#654b0a !important}
+body.light-theme .date-color-toggle.frozen{color:#70550b;border-color:rgba(112,85,11,.45)}
+body.light-theme .info b{color:#654b0a}
+
+/* COLOR OFF: remove only the animated/rainbow rings around links; preserve link backgrounds and icons. */
+body.color-off .social::before,
+body.color-off .game-link::before{
+  display:none !important;
+}
+body.color-off .social,
+body.color-off .game-link{
+  filter:none !important;
+}
+body.color-off .app-icon{filter:none !important}
