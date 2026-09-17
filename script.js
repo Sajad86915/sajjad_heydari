@@ -110,8 +110,7 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   var views = {
     "2007": document.getElementById("view-2007"),
     "1386": document.getElementById("view-1386"),
-    "info": document.getElementById("view-info"),
-    "wallet": document.getElementById("view-wallet")
+    "info": document.getElementById("view-info")
   };
 
   if(!hub) return;
