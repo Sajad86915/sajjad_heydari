@@ -115,7 +115,17 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 
   if(!hub) return;
 
-  function openView(name){
+  function replay(el, cls){
+    if(!el) return;
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+    setTimeout(function(){ el.classList.remove(cls); }, 760);
+  }
+
+  function openView(name, trigger){
+    replay(trigger, "card-open");
+
     Object.keys(views).forEach(function(key){
       if(views[key]) views[key].hidden = key !== name;
     });
@@ -125,23 +135,30 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 
     var selected = views[name];
     if(selected){
+      selected.classList.remove("view-enter");
+      void selected.offsetWidth;
       selected.classList.add("view-enter");
-      setTimeout(function(){ selected.classList.remove("view-enter"); }, 550);
+      setTimeout(function(){ selected.classList.remove("view-enter"); }, 800);
     }
   }
 
-  function goBack(){
+  function goBack(event){
+    var trigger = event && event.currentTarget;
+    replay(trigger, "card-open");
+
     Object.keys(views).forEach(function(key){
       if(views[key]) views[key].hidden = true;
     });
     hub.hidden = false;
+    hub.classList.remove("hub-visible");
+    void hub.offsetWidth;
     hub.classList.add("hub-visible");
     window.scrollTo({top:0, behavior:"instant"});
   }
 
   hub.querySelectorAll("[data-view]").forEach(function(btn){
     btn.addEventListener("click", function(){
-      openView(btn.getAttribute("data-view"));
+      openView(btn.getAttribute("data-view"), btn);
     });
   });
 
@@ -149,7 +166,6 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     btn.addEventListener("click", goBack);
   });
 })();
-
 
 (function(){
   document.querySelectorAll(".tag-copy").forEach(function(btn){

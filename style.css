@@ -859,3 +859,125 @@ body.color-off .game-link{
   filter:none !important;
 }
 body.color-off .app-icon{filter:none !important}
+
+/* ===== PREMIUM PAGE / BUTTON ANIMATIONS ===== */
+/* Every main action gets a tactile press, glow and lift without changing layout. */
+.hub-card,
+.hub-control,
+.view-back,
+.back-to-top,
+.tag-copy{
+  -webkit-tap-highlight-color:transparent;
+  will-change:transform;
+}
+.hub-card:active,
+.hub-control:active,
+.view-back:active,
+.back-to-top:active,
+.tag-copy:active{
+  transform:scale(.94);
+}
+.hub-card.card-open,
+.hub-control.card-open,
+.view-back.card-open{
+  animation:uiPress .42s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes uiPress{
+  0%{transform:scale(1)}
+  35%{transform:scale(.94)}
+  70%{transform:scale(1.025)}
+  100%{transform:scale(1)}
+}
+
+/* Home: each profile circle enters with its own elegant stagger. */
+#profile-hub.hub-visible .hub-card{
+  animation:hubCardReveal .72s cubic-bezier(.16,1,.3,1) both;
+}
+#profile-hub.hub-visible .hub-card:nth-child(1){animation-delay:.08s}
+#profile-hub.hub-visible .hub-card:nth-child(2){animation-delay:.20s}
+#profile-hub.hub-visible .hub-card:nth-child(3){animation-delay:.32s}
+@keyframes hubCardReveal{
+  from{opacity:0;transform:translateY(34px) scale(.82);filter:blur(5px)}
+  65%{opacity:1;transform:translateY(-4px) scale(1.02);filter:blur(0)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* Page entrance: a slightly different motion for each section. */
+.view-1386.view-enter{animation:friendEnter .62s cubic-bezier(.16,1,.3,1)}
+.view-info.view-enter{animation:infoEnter .72s cubic-bezier(.16,1,.3,1)}
+.view-2007.view-enter{animation:familyEnter .62s cubic-bezier(.16,1,.3,1)}
+@keyframes friendEnter{
+  from{opacity:0;transform:translateX(-34px) scale(.985);filter:blur(4px)}
+  to{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
+}
+@keyframes infoEnter{
+  from{opacity:0;transform:translateY(28px) scale(.96);filter:blur(5px)}
+  65%{opacity:1;transform:translateY(-3px) scale(1.01);filter:blur(0)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes familyEnter{
+  from{opacity:0;transform:translateX(34px) scale(.985);filter:blur(4px)}
+  to{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
+}
+
+/* INFO: text softly zooms when touched/hovered. */
+.view-info .info p{
+  transform-origin:center;
+  transition:transform .28s cubic-bezier(.2,.8,.2,1),background .28s ease,box-shadow .28s ease;
+  border-radius:14px;
+  padding:2px 8px;
+}
+.view-info .info p:hover,
+.view-info .info p:focus-within{
+  transform:scale(1.055);
+  background:rgba(216,178,91,.07);
+  box-shadow:0 8px 24px rgba(216,178,91,.08);
+}
+.view-info .info p:active{transform:scale(1.025)}
+.view-info .info-large{
+  animation:infoPanelReveal .85s cubic-bezier(.16,1,.3,1) .12s both;
+}
+@keyframes infoPanelReveal{
+  from{opacity:0;transform:translateY(16px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* BACK buttons: arrow slides out and returns while the button gives feedback. */
+.view-back{position:relative;overflow:hidden}
+.view-back::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  transform:translateX(-120%);
+  transition:transform .5s ease;
+}
+.view-back:hover::after{transform:translateX(120%)}
+.view-back:hover{transform:translateX(-4px) scale(1.02)}
+.view-back:active{transform:translateX(-2px) scale(.95)}
+
+/* Social/game links: tactile press + subtle shine. */
+.social,.game-link{overflow:hidden}
+.social::after,.game-link::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);
+  transform:translateX(-130%);
+  transition:transform .65s ease;
+}
+.social:hover::after,.game-link:hover::after{transform:translateX(130%)}
+.social:active,.game-link:active{transform:scale(.975)}
+.social.card-clicked,.game-link.card-clicked{animation:linkTap .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes linkTap{
+  0%{transform:scale(1)}
+  35%{transform:scale(.965)}
+  70%{transform:scale(1.012)}
+  100%{transform:scale(1)}
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition-duration:.001ms !important}
+}
+
