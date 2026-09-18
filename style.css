@@ -1008,3 +1008,30 @@ body.color-off .app-icon{filter:none !important}
   .hub-card{width:42vw;height:42vw;min-width:135px;min-height:135px}
   .hub-card-main{font-size:11px}
 }
+
+/* ===== CODM CARD — same copy-card structure as Clash of Clans ===== */
+.game-link.codm-info{
+  grid-column:1/-1;flex-direction:column;align-items:stretch;padding:0;overflow:hidden;
+  background:linear-gradient(135deg,#3a3d42,#15171a);
+  border-color:rgba(255,255,255,.18);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);min-height:auto;
+}
+.game-link.codm-info:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.34)}
+.codm-title{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:16px 16px 14px;color:#fff;direction:rtl;
+}
+.codm-title span:first-child{font-weight:800}
+.codm-title span:last-child{font-size:13px;color:rgba(255,255,255,.82)}
+.codm-copy{
+  width:100%;border:none;border-top:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.16);color:#fff;padding:11px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:1px;
+  direction:ltr;transition:.2s ease;box-sizing:border-box;
+}
+.codm-copy:hover{background:rgba(0,0,0,.26)}
+
+/* Day/night changes the page background only; app icons keep their original colors. */
+body.light-theme .icon img,
+body.light-theme .app-icon{filter:none !important;opacity:1 !important;}
