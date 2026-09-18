@@ -110,10 +110,16 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   var views = {
     "2007": document.getElementById("view-2007"),
     "1386": document.getElementById("view-1386"),
-    "info": document.getElementById("view-info")
+    "info": document.getElementById("view-info"),
+    "games": document.getElementById("view-games")
   };
 
   if(!hub) return;
+
+  /* Never show a content page underneath the home screen on first load. */
+  Object.keys(views).forEach(function(key){
+    if(views[key]) views[key].hidden = true;
+  });
 
   function replay(el, cls){
     if(!el) return;
