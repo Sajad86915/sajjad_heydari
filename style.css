@@ -38,7 +38,7 @@ body{
     radial-gradient(circle at 50% 0%,var(--bg-1),transparent 32%),
     linear-gradient(180deg,var(--bg-2) 0%,var(--bg-3) 100%);
   color:var(--text);
-  font-family:"Vazirmatn",sans-serif;
+  font-family:"Vazirmatn","Noto Sans",sans-serif;
   min-height:100vh;
   transition:background .35s ease,color .35s ease
 }
@@ -50,7 +50,7 @@ body:before{
 .page{width:min(720px,92%);margin:auto;padding:54px 0 34px;text-align:center}
 .hero{margin-bottom:38px}
 .brand{
-  font-family:"Cinzel",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-size:clamp(32px,8vw,54px);font-weight:700;letter-spacing:4px;
   display:flex;flex-direction:column;align-items:center;line-height:.98;
   margin-top:4px;
 }
@@ -67,7 +67,7 @@ body:before{
 .username{color:#d8b25b;text-decoration:none;font-size:16px}
 .bio{
   margin:24px auto 0;display:inline-block;padding:10px 24px;
-  font-family:"Cinzel",serif;font-size:23px;font-weight:700;letter-spacing:5px;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-size:23px;font-weight:700;letter-spacing:5px;
   color:#b56cff;text-shadow:0 0 18px rgba(181,108,255,.5);
   border-bottom:1px solid rgba(181,108,255,.45)
 }
@@ -313,7 +313,7 @@ footer{margin-top:44px}
 }
 .profile-caption{
   margin-top:12px;text-align:center;line-height:1.75;
-  font-family:"Cinzel",serif;font-size:14px;font-weight:700;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-size:14px;font-weight:700;
   letter-spacing:1.3px;color:#f2f2f4;
   text-shadow:0 0 12px rgba(181,108,255,.22);
 }
@@ -337,7 +337,7 @@ footer{margin-top:44px}
 #start-btn{
   cursor:pointer;background:transparent;border:1.5px solid rgba(255,255,255,.22);
   border-radius:999px;padding:20px 40px;display:flex;flex-direction:column;
-  align-items:center;gap:8px;font-family:"Cinzel",serif;
+  align-items:center;gap:8px;font-family:"Cinzel","Vazirmatn","Noto Sans",serif;
   box-shadow:0 0 0 rgba(181,108,255,0);
   animation:startBtnPulse 2.2s ease-in-out infinite;
   transition:transform .25s ease,border-color .25s ease
@@ -355,7 +355,7 @@ footer{margin-top:44px}
   animation:rainbowShift 3.2s linear infinite
 }
 .start-loading-count{
-  font-family:"Cinzel",serif;font-size:clamp(30px,9vw,46px);font-weight:700;letter-spacing:2px;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-size:clamp(30px,9vw,46px);font-weight:700;letter-spacing:2px;
   color:#fff;text-shadow:0 0 22px rgba(181,108,255,.55)
 }
 .start-loading-percent{font-size:.55em;color:#b56cff;margin-right:2px}
@@ -384,7 +384,7 @@ body.intro-lock{overflow:hidden}
 }
 #intro-screen.show .intro-ring{animation:introSpin .9s linear infinite}
 .intro-brand{
-  font-family:"Cinzel",serif;font-size:clamp(24px,7vw,38px);font-weight:700;letter-spacing:4px;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-size:clamp(24px,7vw,38px);font-weight:700;letter-spacing:4px;
   background:linear-gradient(90deg,#fff,#d8b25b,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;
   text-shadow:0 0 24px rgba(216,178,91,.2);
   opacity:0
@@ -395,7 +395,7 @@ body.intro-lock{overflow:hidden}
 .intro-words{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;max-width:300px;min-height:22px}
 .intro-word{
   opacity:0;transform:translateY(10px) scale(.7);
-  font-family:"Cinzel",serif;font-weight:700;font-size:16px;letter-spacing:.5px;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;font-weight:700;font-size:16px;letter-spacing:.5px;
   color:#fff;text-shadow:0 0 16px rgba(181,108,255,.75)
 }
 #intro-screen.show .intro-word{animation:introWordPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
@@ -510,7 +510,7 @@ body.intro-lock{overflow:hidden}
   pointer-events:none;
   z-index:0;
   /* IMPORTANT: no transform/rotation — the frame never moves. */
-  animation:rainbowColorChange 1.15s linear infinite;
+  animation:rainbowColorChange .5s linear infinite;
   will-change:filter;
 }
 
@@ -558,7 +558,7 @@ body.motion-paused .game-link::before{
   to{opacity:1;transform:scale(1) translateY(0)}
 }
 .hub-title{
-  font-family:"Cinzel",serif;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;
   font-size:clamp(27px,7vw,44px);
   font-weight:700;
   letter-spacing:4px;
@@ -625,7 +625,7 @@ body.motion-paused .game-link::before{
 .hub-card:active{transform:scale(.97)}
 .hub-card-main{
   position:relative;z-index:1;
-  font-family:"Cinzel",serif;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;
   font-size:clamp(12px,2.7vw,18px);
   font-weight:700;
   letter-spacing:1px;
@@ -670,7 +670,7 @@ body.motion-paused .game-link::before{
 }
 .view-back:hover{transform:translateX(-3px);border-color:rgba(181,108,255,.5)}
 .compact-brand{
-  font-family:"Cinzel",serif;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;
   font-size:clamp(28px,7vw,42px);
   font-weight:700;
   letter-spacing:4px;
@@ -679,7 +679,7 @@ body.motion-paused .game-link::before{
 }
 .view-label{
   color:#b56cff;
-  font-family:"Cinzel",serif;
+  font-family:"Cinzel","Vazirmatn","Noto Sans",serif;
   font-weight:700;
   letter-spacing:2px;
   direction:ltr;
@@ -1049,3 +1049,70 @@ body.light-theme .app-icon{filter:none !important;opacity:1 !important;}
 .aparat .icon img,.aparatmusic .icon img{width:34px;height:34px}
 .soundcloud{background:linear-gradient(135deg,#ff7a1a,#ff3300);box-shadow:0 10px 30px rgba(255,85,0,.28);--ring-a:rgba(255,85,0,.4);--ring-b:#ffd0b0}
 .soundcloud:hover{filter:brightness(1.1)}
+
+
+/* ===================================================================
+   Languages (EN / FA / AR / RU) + copy-ID chips + toast
+   =================================================================== */
+
+/* Language switcher on the home screen */
+.lang-switch{display:flex;align-items:stretch;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.lang-btn{
+  border:1px solid var(--card-border);background:var(--card-bg);color:var(--text);
+  border-radius:999px;padding:0 16px;min-height:40px;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;
+  font-family:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.25s ease;backdrop-filter:blur(12px)
+}
+.lang-btn:hover{transform:translateY(-2px);border-color:rgba(216,178,91,.55)}
+.lang-btn:active{transform:scale(.95)}
+.lang-btn[aria-pressed="true"]{border-color:#d8b25b;background:rgba(216,178,91,.16);color:#d8b25b}
+.lang-btn:focus-visible,.id-copy:focus-visible{outline:2px solid #d8b25b;outline-offset:2px}
+body.light-theme .lang-btn{background:var(--site-surface) !important;color:var(--site-text) !important;border-color:var(--site-border) !important}
+body.light-theme .lang-btn[aria-pressed="true"]{color:#70550b !important;border-color:#70550b !important;background:rgba(112,85,11,.10) !important}
+
+/* Persian/Arabic: letter-spacing would break the joined letters; give small labels more room */
+html[lang="fa"] *,html[lang="ar"] *{letter-spacing:normal !important}
+html[lang="fa"] .hub-control,html[lang="ar"] .hub-control,
+html[lang="fa"] .view-back,html[lang="ar"] .view-back,
+html[lang="fa"] .hub-card-sub,html[lang="ar"] .hub-card-sub{font-size:13px}
+html[lang="fa"] .hub-subtitle,html[lang="ar"] .hub-subtitle{font-size:14px}
+
+/* Left-to-right languages: game cards follow the page direction */
+html[dir="ltr"] .game-link,html[dir="ltr"] .codm-title{direction:ltr;text-align:left}
+html[dir="ltr"] .info b{margin-right:0;margin-left:5px}
+
+/* Games: Steam / Epic now carry a copy bar like Clash of Clans and CODM */
+.game-link.has-copy{flex-direction:column;align-items:stretch;padding:0;overflow:hidden;min-height:auto}
+.game-link.epic.has-copy{grid-column:1/-1}
+.game-link.has-copy .tag-copy{width:100%;box-sizing:border-box}
+.tag-copy .tag-copy-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Link row: card + copy-ID chip beside it */
+.social-row{display:flex;align-items:stretch;gap:10px;direction:ltr}
+.social-row .social{flex:1 1 0;width:auto;min-width:0}
+.id-copy{
+  flex:0 0 58px;padding:0;border:1px solid var(--card-border);background:var(--card-bg);
+  color:var(--text);border-radius:20px;cursor:pointer;display:grid;place-items:center;
+  transition:.2s ease;backdrop-filter:blur(8px)
+}
+.id-copy svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.id-copy .ic-check{display:none}
+.id-copy:hover{transform:translateY(-2px);border-color:rgba(181,108,255,.5);background:var(--card-hover-bg)}
+.id-copy:active{transform:scale(.94)}
+.id-copy.copied{background:rgba(31,165,81,.32);border-color:rgba(31,165,81,.75)}
+.id-copy.copied .ic-copy{display:none}
+.id-copy.copied .ic-check{display:block}
+@media(max-width:560px){.id-copy{flex-basis:52px}}
+
+/* Toast: "Copied ✓  Instagram @sajjad_heydari2007" */
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:900;transform:translate(-50%,16px);
+  display:flex;align-items:center;gap:10px;max-width:min(92vw,460px);
+  padding:11px 16px;border-radius:16px;background:rgba(20,20,26,.95);color:#fff;
+  border:1px solid rgba(255,255,255,.14);box-shadow:0 12px 34px rgba(0,0,0,.4);
+  font-size:14px;opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast-status{color:#6ee7a0;font-weight:800;white-space:nowrap}
+.toast-text{direction:ltr;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

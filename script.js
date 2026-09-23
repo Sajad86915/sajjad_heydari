@@ -173,38 +173,85 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   });
 })();
 
+/* ---------- clipboard helper + copy buttons ---------- */
+function copyText(text){
+  function fallbackCopy(){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(fallbackCopy);
+  }else{
+    fallbackCopy();
+  }
+}
+
+/* Game cards: copy bar (tag / ID / name) */
 (function(){
-  document.querySelectorAll(".tag-copy").forEach(function(btn){
+  var buttons = document.querySelectorAll(".tag-copy");
+  function render(btn){
     var textEl = btn.querySelector(".tag-copy-text");
-    var original = textEl.textContent;
-    var value = btn.getAttribute("data-copy") || original;
+    if(!textEl) return;
+    textEl.textContent = btn.classList.contains("copied")
+      ? t("copied")
+      : t(btn.getAttribute("data-label"), { v: btn.getAttribute("data-copy") });
+  }
+
+  buttons.forEach(function(btn){
     var timer = null;
-
-    function fallbackCopy(text){
-      var ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try{ document.execCommand("copy"); }catch(e){}
-      document.body.removeChild(ta);
-    }
-
     btn.addEventListener("click", function(){
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(value).catch(function(){ fallbackCopy(value); });
-      }else{
-        fallbackCopy(value);
-      }
+      copyText(btn.getAttribute("data-copy"));
       btn.classList.add("copied");
-      textEl.textContent = "کپی شد ✓";
+      render(btn);
       clearTimeout(timer);
       timer = setTimeout(function(){
         btn.classList.remove("copied");
-        textEl.textContent = original;
+        render(btn);
       }, 1600);
+    });
+    render(btn);
+  });
+
+  document.addEventListener("sitelangchange", function(){ buttons.forEach(render); });
+})();
+
+/* Link cards: copy-ID chip + toast ("Instagram @sajjad_heydari2007  Copied ✓") */
+(function(){
+  var ICONS =
+    '<svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.6"/><path d="M5 15V6.6A2.6 2.6 0 0 1 7.6 4H15"/></svg>' +
+    '<svg class="ic-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  var toast = document.getElementById("toast");
+  var toastStatus = toast && toast.querySelector(".toast-status");
+  var toastText = toast && toast.querySelector(".toast-text");
+  var toastTimer = null;
+
+  function showToast(text){
+    if(!toast) return;
+    toastStatus.textContent = t("copied");
+    toastText.textContent = text;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 2200);
+  }
+
+  document.querySelectorAll(".id-copy").forEach(function(btn){
+    var timer = null;
+    btn.innerHTML = ICONS;
+    btn.addEventListener("click", function(){
+      var id = btn.getAttribute("data-id");
+      copyText(id);
+      btn.classList.add("copied");
+      clearTimeout(timer);
+      timer = setTimeout(function(){ btn.classList.remove("copied"); }, 1600);
+      showToast(btn.getAttribute("data-platform") + " " + id);
     });
   });
 })();
@@ -271,14 +318,15 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
 
     if(theme){
       theme.querySelector(".hub-control-icon").textContent=light?"☾":"☼";
-      theme.querySelector(".hub-control-text").textContent=light?"NIGHT":"DAY";
+      theme.querySelector(".hub-control-text").textContent=light?t("night"):t("day");
     }
     if(color){
       color.querySelector(".hub-control-icon").textContent=off?"○":"◉";
-      color.querySelector(".hub-control-text").textContent=off?"COLOR OFF":"COLOR";
+      color.querySelector(".hub-control-text").textContent=off?t("colorOff"):t("colorOn");
     }
   }
   sync();
+  document.addEventListener("sitelangchange", sync);
 
   if(theme) theme.addEventListener("click",function(){
     localStorage.setItem("site-theme",
