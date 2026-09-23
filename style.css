@@ -1035,3 +1035,13 @@ body.color-off .app-icon{filter:none !important}
 /* Day/night changes the page background only; app icons keep their original colors. */
 body.light-theme .icon img,
 body.light-theme .app-icon{filter:none !important;opacity:1 !important;}
+
+/* ---- extra socials (Pinterest, YouTube Music, Aparat, Aparat Music) ---- */
+.social.pinterest,.social.youtubemusic,.social.aparat,.social.aparatmusic{border-color:transparent;color:#fff}
+.social.pinterest .icon,.social.youtubemusic .icon,.social.aparat .icon,.social.aparatmusic .icon{background:rgba(0,0,0,.15)}
+.social.pinterest .arrow,.social.youtubemusic .arrow,.social.aparat .arrow,.social.aparatmusic .arrow{color:#fff}
+.pinterest{background:linear-gradient(135deg,#e60023,#ad081b);box-shadow:0 10px 30px rgba(230,0,35,.26);--ring-a:rgba(230,0,35,.4);--ring-b:#ffb3bf}
+.youtubemusic{background:linear-gradient(135deg,#2a2a2a,#0d0d0d);border-color:rgba(255,0,51,.45)!important;box-shadow:0 10px 30px rgba(0,0,0,.35);--ring-a:rgba(255,0,51,.4);--ring-b:#ff9aa9}
+.aparat{background:linear-gradient(135deg,#ed145b,#a10d40);box-shadow:0 10px 30px rgba(237,20,91,.26);--ring-a:rgba(237,20,91,.4);--ring-b:#ffb0cb}
+.aparatmusic{background:linear-gradient(135deg,#7a3ff2,#4a1fb8);box-shadow:0 10px 30px rgba(122,63,242,.28);--ring-a:rgba(122,63,242,.4);--ring-b:#d2bcff}
+.pinterest:hover,.youtubemusic:hover,.aparat:hover,.aparatmusic:hover{filter:brightness(1.1)}
