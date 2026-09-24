@@ -12,7 +12,7 @@
       clearTimeout(card._clickPulseTimer);
       card._clickPulseTimer = setTimeout(function(){
         card.classList.remove("card-clicked");
-      }, 380);
+      }, 560);
     }, {passive:true});
   });
 })();
@@ -129,9 +129,22 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     setTimeout(function(){ el.classList.remove(cls); }, 760);
   }
 
-  function openView(name, trigger){
-    replay(trigger, "card-open");
+  var NAV_DELAY = 280;   /* lets the button press + page-out animation be seen */
+  var navBusy = false;
 
+  function openView(name, trigger){
+    if(navBusy) return;
+    navBusy = true;
+    replay(trigger, "card-open");
+    hub.classList.add("hub-leaving");
+    setTimeout(function(){
+      hub.classList.remove("hub-leaving");
+      showView(name);
+      navBusy = false;
+    }, NAV_DELAY);
+  }
+
+  function showView(name){
     Object.keys(views).forEach(function(key){
       if(views[key]) views[key].hidden = key !== name;
     });
@@ -149,9 +162,23 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
   }
 
   function goBack(event){
+    if(navBusy) return;
+    navBusy = true;
     var trigger = event && event.currentTarget;
     replay(trigger, "card-open");
+    var current = null;
+    Object.keys(views).forEach(function(key){
+      if(views[key] && !views[key].hidden) current = views[key];
+    });
+    if(current) current.classList.add("view-leaving");
+    setTimeout(function(){
+      if(current) current.classList.remove("view-leaving");
+      showHub();
+      navBusy = false;
+    }, NAV_DELAY);
+  }
 
+  function showHub(){
     Object.keys(views).forEach(function(key){
       if(views[key]) views[key].hidden = true;
     });
@@ -375,59 +402,25 @@ function copyText(text){
 
 
 /* ==========================================================
-   Click effects — every tappable thing reacts
+   Click feedback — only on real buttons and links
+   (the press happens on the element itself, nothing is drawn elsewhere)
    ========================================================== */
 (function(){
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduce) return;
 
-  var TARGETS = 'a[href], button, [role="button"], .info p';
+  var TARGETS = 'a[href], button, [role="button"]';
   var NO_POP  = ".social, .game-link, .hub-card, .view-back"; /* these already have their own press animation */
   var canAnimate = typeof Element.prototype.animate === "function";
 
-  function burst(x, y, color, size){
-    var fx = document.createElement("div");
-    fx.className = "tap-fx";
-    fx.style.transform = "translate(" + x + "px," + y + "px)";
-    fx.style.setProperty("--c", color);
-    fx.style.setProperty("--d", size + "px");
-
-    var ring = document.createElement("span");
-    ring.className = "tap-ring";
-    fx.appendChild(ring);
-
-    if(canAnimate){
-      var n = 8;
-      for(var i = 0; i < n; i++){
-        var dot = document.createElement("span");
-        dot.className = "tap-dot";
-        fx.appendChild(dot);
-        var ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-        var dist = size * 0.42 + Math.random() * 14;
-        dot.animate([
-          { transform:"translate(0,0) scale(1)", opacity:1 },
-          { transform:"translate(" + Math.cos(ang) * dist + "px," + Math.sin(ang) * dist + "px) scale(.2)", opacity:0 }
-        ], { duration:520, easing:"cubic-bezier(.2,.8,.2,1)", fill:"forwards" });
-      }
-    }
-    document.body.appendChild(fx);
-    setTimeout(function(){ if(fx.parentNode) fx.parentNode.removeChild(fx); }, 650);
-  }
-
-  function react(el, x, y){
-    var color = (getComputedStyle(el).getPropertyValue("--ring-b") || "").trim() || "#d8b25b";
-    var r = el.getBoundingClientRect();
-    var size = Math.max(70, Math.min(190, Math.max(r.width, r.height) * 1.05));
-    burst(x, y, color, size);
-
-    if(canAnimate && !el.matches(NO_POP)){
-      el.animate([
-        { scale:"1" },
-        { scale:".93", offset:.35 },
-        { scale:"1.03", offset:.7 },
-        { scale:"1" }
-      ], { duration:380, easing:"cubic-bezier(.2,.8,.2,1)" });
-    }
+  function press(el){
+    if(!canAnimate || el.matches(NO_POP)) return;
+    el.animate([
+      { scale:"1",    boxShadow:"0 0 0 0 rgba(216,178,91,.55)" },
+      { scale:".92",  boxShadow:"0 0 0 4px rgba(216,178,91,.35)", offset:.35 },
+      { scale:"1.03", boxShadow:"0 0 0 9px rgba(216,178,91,.10)", offset:.7 },
+      { scale:"1",    boxShadow:"0 0 0 12px rgba(216,178,91,0)" }
+    ], { duration:420, easing:"cubic-bezier(.2,.8,.2,1)" });
   }
 
   function findTarget(node){
@@ -436,20 +429,17 @@ function copyText(text){
     return el;
   }
 
-  /* mouse / touch / pen: react the moment the finger goes down */
   document.addEventListener("pointerdown", function(e){
     if(!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
     var el = findTarget(e.target);
-    if(el) react(el, e.clientX, e.clientY);
+    if(el) press(el);
   }, {passive:true, capture:true});
 
   /* keyboard (Enter / Space) fires click with detail 0 */
   document.addEventListener("click", function(e){
     if(e.detail !== 0) return;
     var el = findTarget(e.target);
-    if(!el) return;
-    var r = el.getBoundingClientRect();
-    react(el, r.left + r.width / 2, r.top + r.height / 2);
+    if(el) press(el);
   }, {capture:true});
 
   /* extras: theme / color icons, back-to-top launch */

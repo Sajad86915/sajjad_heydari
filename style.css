@@ -249,9 +249,9 @@ body:before{
 .clash-open span:last-child{font-size:13px;color:rgba(255,255,255,.82)}
 .tag-copy{
   border:none;border-top:1px solid rgba(255,255,255,.22);
-  background:rgba(0,0,0,.16);color:#fff;padding:11px 16px;
+  background:rgba(0,0,0,.16);color:#fff;padding:7px 14px;
   display:flex;align-items:center;justify-content:space-between;gap:8px;
-  cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:1px;
+  cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.6px;
   direction:ltr;transition:.2s ease
 }
 .tag-copy:hover{background:rgba(0,0,0,.28)}
@@ -612,7 +612,7 @@ body.motion-paused .game-link::before{
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
-  animation:hubRing 4s linear infinite;
+  animation:hubRing 2.6s linear infinite,rainbowColorChange 1.2s linear infinite;
   opacity:.85;
 }
 @keyframes hubRing{to{transform:rotate(360deg)}}
@@ -883,10 +883,10 @@ body.color-off .app-icon{filter:none !important}
   animation:uiPress .42s cubic-bezier(.2,.8,.2,1);
 }
 @keyframes uiPress{
-  0%{transform:scale(1)}
-  35%{transform:scale(.94)}
-  70%{transform:scale(1.025)}
-  100%{transform:scale(1)}
+  0%{transform:scale(1);box-shadow:0 0 0 0 rgba(216,178,91,.55)}
+  35%{transform:scale(.94);box-shadow:0 0 0 4px rgba(216,178,91,.35)}
+  70%{transform:scale(1.025);box-shadow:0 0 0 10px rgba(216,178,91,.10)}
+  100%{transform:scale(1);box-shadow:0 0 0 14px rgba(216,178,91,0)}
 }
 
 /* Home: each profile circle enters with its own elegant stagger. */
@@ -1019,15 +1019,16 @@ body.color-off .app-icon{filter:none !important}
 .game-link.codm-info:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.34)}
 .codm-title{
   display:flex;align-items:center;justify-content:space-between;gap:8px;
-  padding:16px 16px 14px;color:#fff;direction:rtl;
+  padding:12px 16px 10px;color:#fff;direction:rtl;
 }
 .codm-title span:first-child{font-weight:800}
 .codm-title span:last-child{font-size:13px;color:rgba(255,255,255,.82)}
+.codm-title span:only-child{font-size:inherit;color:#fff}
 .codm-copy{
   width:100%;border:none;border-top:1px solid rgba(255,255,255,.22);
-  background:rgba(0,0,0,.16);color:#fff;padding:11px 16px;
+  background:rgba(0,0,0,.16);color:#fff;padding:7px 14px;
   display:flex;align-items:center;justify-content:space-between;gap:8px;
-  cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:1px;
+  cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.6px;
   direction:ltr;transition:.2s ease;box-sizing:border-box;
 }
 .codm-copy:hover{background:rgba(0,0,0,.26)}
@@ -1122,22 +1123,6 @@ html[dir="ltr"] .info b{margin-right:0;margin-left:5px}
    Motion: click effects + scroll animations
    =================================================================== */
 
-/* --- click burst (ring + sparks) drawn at the pointer --- */
-.tap-fx{position:fixed;left:0;top:0;width:0;height:0;pointer-events:none;z-index:10050}
-.tap-ring{
-  position:absolute;left:0;top:0;width:var(--d,120px);height:var(--d,120px);
-  margin:calc(var(--d,120px) / -2) 0 0 calc(var(--d,120px) / -2);
-  border-radius:50%;border:2px solid var(--c,#d8b25b);
-  box-shadow:0 0 16px var(--c,#d8b25b),inset 0 0 16px var(--c,#d8b25b);
-  opacity:.95;transform:scale(.08);
-  animation:tapRing .55s cubic-bezier(.2,.8,.2,1) forwards
-}
-@keyframes tapRing{60%{opacity:.5}to{transform:scale(1);opacity:0}}
-.tap-dot{
-  position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;
-  border-radius:50%;background:var(--c,#d8b25b);box-shadow:0 0 8px var(--c,#d8b25b)
-}
-
 /* --- scroll progress bar --- */
 #scroll-progress{
   position:fixed;left:0;right:0;top:0;height:3px;z-index:800;pointer-events:none;
@@ -1160,7 +1145,18 @@ html[dir="rtl"] #scroll-progress{transform-origin:right center}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .tap-fx{display:none}
   #scroll-progress{transition:none}
   .view-2007 .profile-top,.compact-brand,.view-label{translate:none;scale:none;opacity:1}
 }
+
+
+/* --- page-out animations (played while the pressed button is still visible) --- */
+.hub-leaving{animation:hubOut .28s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes hubOut{to{opacity:0;transform:scale(.96)}}
+.view-leaving{animation:viewOut .28s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes viewOut{to{opacity:0;transform:translateY(14px)}}
+.hub-card.card-open,.view-back.card-open{animation-duration:.3s}
+
+/* --- links: light sweep across the card when tapped (also works on touch screens) --- */
+.social.card-clicked::after,.game-link.card-clicked::after{animation:linkShine .5s ease-out}
+@keyframes linkShine{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
