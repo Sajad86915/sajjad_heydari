@@ -510,7 +510,7 @@ body.intro-lock{overflow:hidden}
   pointer-events:none;
   z-index:0;
   /* IMPORTANT: no transform/rotation — the frame never moves. */
-  animation:rainbowColorChange .5s linear infinite;
+  animation:rainbowColorChange 1.15s linear infinite;
   will-change:filter;
 }
 
@@ -612,7 +612,7 @@ body.motion-paused .game-link::before{
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
-  animation:hubRing 2.6s linear infinite,rainbowColorChange 1.2s linear infinite;
+  animation:hubRing 4s linear infinite;
   opacity:.85;
 }
 @keyframes hubRing{to{transform:rotate(360deg)}}
@@ -1160,3 +1160,22 @@ html[dir="rtl"] #scroll-progress{transform-origin:right center}
 /* --- links: light sweep across the card when tapped (also works on touch screens) --- */
 .social.card-clicked::after,.game-link.card-clicked::after{animation:linkShine .5s ease-out}
 @keyframes linkShine{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
+
+
+/* --- link launch: press, glow pulse, light sweep and the arrow shooting out --- */
+.social.link-launch,.game-link.link-launch{animation:linkLaunch .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes linkLaunch{
+  0%  {transform:scale(1);    box-shadow:0 0 0 0 var(--ring-b,#d8b25b)}
+  30% {transform:scale(.94)}
+  62% {transform:scale(1.03)}
+  100%{transform:scale(1);    box-shadow:0 0 0 18px transparent}
+}
+.social.link-launch::after,.game-link.link-launch::after{animation:linkShine .5s ease-out}
+.social.link-launch .arrow,
+.game-link.link-launch .clash-open span:last-child{display:inline-block;animation:arrowFly .5s ease-in-out}
+@keyframes arrowFly{
+  0%  {transform:translate(0,0);        opacity:1}
+  45% {transform:translate(18px,-18px); opacity:0}
+  46% {transform:translate(-18px,18px); opacity:0}
+  100%{transform:translate(0,0);        opacity:1}
+}

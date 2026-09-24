@@ -1,19 +1,35 @@
 
+/* Link cards: play a clear "launch" animation first, then open the link.
+   (Without the short delay the new tab opens instantly and the animation is never seen.) */
 (function(){
-  var cards = document.querySelectorAll(".social, .game-link");
-  if(!cards.length) return;
+  var LAUNCH_DELAY = 420; /* ms */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  cards.forEach(function(card){
-    card.addEventListener("pointerdown", function(){
-      card.classList.remove("card-clicked");
-      void card.offsetWidth; // restart the short animation
-      card.classList.add("card-clicked");
+  document.addEventListener("click", function(e){
+    if(e.defaultPrevented) return;
+    var a = e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+    if(!a) return;
+    var card = a.closest(".social, .game-link");
+    if(!card) return;
+    /* new-tab shortcuts keep their normal browser behaviour */
+    if(e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
 
-      clearTimeout(card._clickPulseTimer);
-      card._clickPulseTimer = setTimeout(function(){
-        card.classList.remove("card-clicked");
-      }, 560);
-    }, {passive:true});
+    e.preventDefault();
+    if(card._launching) return;
+    card._launching = true;
+
+    card.classList.remove("link-launch");
+    void card.offsetWidth; /* restart the animation */
+    card.classList.add("link-launch");
+
+    var href = a.href;
+    setTimeout(function(){
+      var w = window.open(href, "_blank");
+      if(w){ try{ w.opener = null; }catch(err){} }
+      else{ window.location.href = href; } /* pop-up blocked: still open the link */
+      card.classList.remove("link-launch");
+      card._launching = false;
+    }, reduce ? 0 : LAUNCH_DELAY);
   });
 })();
 
