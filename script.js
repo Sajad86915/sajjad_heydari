@@ -257,34 +257,67 @@ function copyText(text){
 })();
 
 
+/* Scroll reveal — works in both directions:
+   scrolling down, items rise in from below; scrolling up, they drop in from above.
+   Items that leave the screen reset, so they animate again next time. */
 (function(){
-  var groups = document.querySelectorAll(".reveal-group");
-  if(!groups.length) return;
+  var items = document.querySelectorAll(".reveal-item");
+  if(!items.length) return;
 
-  function revealGroup(group){
-    var items = group.querySelectorAll(".reveal-item");
-    items.forEach(function(item, i){
-      setTimeout(function(){
-        item.classList.add("in-view");
-      }, Math.min(i, 8) * 80);
-    });
+  var dir = 1, lastY = window.scrollY;
+  window.addEventListener("scroll", function(){
+    var y = window.scrollY;
+    if(Math.abs(y - lastY) > 1){ dir = y > lastY ? 1 : -1; lastY = y; }
+  }, {passive:true});
+
+  if(!("IntersectionObserver" in window)){
+    items.forEach(function(item){ item.classList.add("in-view"); });
+    return;
   }
 
-  if("IntersectionObserver" in window){
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          revealGroup(entry.target);
-          observer.unobserve(entry.target);
+  var observer = new IntersectionObserver(function(entries){
+    var order = 0;
+    entries.forEach(function(entry){
+      var el = entry.target;
+      var shown = el.classList.contains("in-view");
+      if(entry.isIntersecting && entry.intersectionRatio >= 0.12){
+        if(!shown){
+          var d = window.scrollY < 8 ? 1 : dir;
+          el.style.setProperty("--ry", (d > 0 ? 34 : -34) + "px");
+          el.style.setProperty("--rd", Math.min(order++, 8) * 70 + "ms");
+          el.classList.add("in-view");
         }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
-    groups.forEach(function(el){ observer.observe(el); });
-  }else{
-    groups.forEach(function(el){
-      el.querySelectorAll(".reveal-item").forEach(function(item){ item.classList.add("in-view"); });
+      }else if(!entry.isIntersecting && shown){
+        el.style.setProperty("--rd", "0ms");
+        el.style.setProperty("--ry", (dir > 0 ? -24 : 24) + "px");
+        el.classList.remove("in-view");
+      }
     });
+  }, { threshold:[0, 0.12], rootMargin:"0px 0px -40px 0px" });
+
+  items.forEach(function(el){ observer.observe(el); });
+})();
+
+/* Scroll progress bar + values used by the scroll-linked hero (--sy) */
+(function(){
+  var bar = document.getElementById("scroll-progress");
+  var root = document.documentElement;
+  var ticking = false;
+
+  function update(){
+    ticking = false;
+    var y = window.scrollY;
+    var max = Math.max(1, root.scrollHeight - window.innerHeight);
+    if(bar) bar.style.setProperty("--p", Math.min(1, Math.max(0, y / max)).toFixed(4));
+    root.style.setProperty("--sy", Math.round(y));
   }
+  function request(){
+    if(!ticking){ ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", request, {passive:true});
+  window.addEventListener("resize", request);
+  document.addEventListener("sitelangchange", request);
+  update();
 })();
 
 (function(){
@@ -338,4 +371,124 @@ function copyText(text){
       body.classList.contains("color-off")?"on":"off");
     sync();
   });
+})();
+
+
+/* ==========================================================
+   Click effects — every tappable thing reacts
+   ========================================================== */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce) return;
+
+  var TARGETS = 'a[href], button, [role="button"], .info p';
+  var NO_POP  = ".social, .game-link, .hub-card, .view-back"; /* these already have their own press animation */
+  var canAnimate = typeof Element.prototype.animate === "function";
+
+  function burst(x, y, color, size){
+    var fx = document.createElement("div");
+    fx.className = "tap-fx";
+    fx.style.transform = "translate(" + x + "px," + y + "px)";
+    fx.style.setProperty("--c", color);
+    fx.style.setProperty("--d", size + "px");
+
+    var ring = document.createElement("span");
+    ring.className = "tap-ring";
+    fx.appendChild(ring);
+
+    if(canAnimate){
+      var n = 8;
+      for(var i = 0; i < n; i++){
+        var dot = document.createElement("span");
+        dot.className = "tap-dot";
+        fx.appendChild(dot);
+        var ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
+        var dist = size * 0.42 + Math.random() * 14;
+        dot.animate([
+          { transform:"translate(0,0) scale(1)", opacity:1 },
+          { transform:"translate(" + Math.cos(ang) * dist + "px," + Math.sin(ang) * dist + "px) scale(.2)", opacity:0 }
+        ], { duration:520, easing:"cubic-bezier(.2,.8,.2,1)", fill:"forwards" });
+      }
+    }
+    document.body.appendChild(fx);
+    setTimeout(function(){ if(fx.parentNode) fx.parentNode.removeChild(fx); }, 650);
+  }
+
+  function react(el, x, y){
+    var color = (getComputedStyle(el).getPropertyValue("--ring-b") || "").trim() || "#d8b25b";
+    var r = el.getBoundingClientRect();
+    var size = Math.max(70, Math.min(190, Math.max(r.width, r.height) * 1.05));
+    burst(x, y, color, size);
+
+    if(canAnimate && !el.matches(NO_POP)){
+      el.animate([
+        { scale:"1" },
+        { scale:".93", offset:.35 },
+        { scale:"1.03", offset:.7 },
+        { scale:"1" }
+      ], { duration:380, easing:"cubic-bezier(.2,.8,.2,1)" });
+    }
+  }
+
+  function findTarget(node){
+    var el = node && node.closest ? node.closest(TARGETS) : null;
+    if(!el || el.disabled || el.getAttribute("aria-disabled") === "true") return null;
+    return el;
+  }
+
+  /* mouse / touch / pen: react the moment the finger goes down */
+  document.addEventListener("pointerdown", function(e){
+    if(!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
+    var el = findTarget(e.target);
+    if(el) react(el, e.clientX, e.clientY);
+  }, {passive:true, capture:true});
+
+  /* keyboard (Enter / Space) fires click with detail 0 */
+  document.addEventListener("click", function(e){
+    if(e.detail !== 0) return;
+    var el = findTarget(e.target);
+    if(!el) return;
+    var r = el.getBoundingClientRect();
+    react(el, r.left + r.width / 2, r.top + r.height / 2);
+  }, {capture:true});
+
+  /* extras: theme / color icons, back-to-top launch */
+  function icon(id){ var b = document.getElementById(id); return b && b.querySelector(".hub-control-icon"); }
+  var themeBtn = document.getElementById("theme-toggle");
+  var colorBtn = document.getElementById("color-toggle");
+  var topBtn   = document.getElementById("back-to-top");
+
+  if(canAnimate){
+    if(themeBtn) themeBtn.addEventListener("click", function(){
+      var i = icon("theme-toggle");
+      if(i) i.animate([{ rotate:"0deg", scale:"1" },{ rotate:"180deg", scale:"1.35", offset:.5 },{ rotate:"360deg", scale:"1" }],
+                      { duration:620, easing:"cubic-bezier(.2,.8,.2,1)" });
+    });
+    if(colorBtn) colorBtn.addEventListener("click", function(){
+      var i = icon("color-toggle");
+      if(i) i.animate([{ scale:"1", rotate:"0deg" },{ scale:"1.5", rotate:"120deg", offset:.45 },{ scale:"1", rotate:"360deg" }],
+                      { duration:620, easing:"cubic-bezier(.2,.8,.2,1)" });
+    });
+    if(topBtn) topBtn.addEventListener("click", function(){
+      topBtn.animate([
+        { translate:"0 0", opacity:1 },
+        { translate:"0 -22px", opacity:0, offset:.45 },
+        { translate:"0 18px", opacity:0, offset:.46 },
+        { translate:"0 0", opacity:1 }
+      ], { duration:600, easing:"cubic-bezier(.2,.8,.2,1)" });
+    });
+
+    /* language change: visible texts ripple in */
+    document.addEventListener("sitelangchange", function(){
+      var vh = window.innerHeight, n = 0;
+      document.querySelectorAll("[data-i18n]").forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(!r.width || r.bottom < 0 || r.top > vh) return;
+        el.animate([
+          { opacity:0, translate:"0 10px" },
+          { opacity:1, translate:"0 0" }
+        ], { duration:420, delay:Math.min(n++, 14) * 28, easing:"cubic-bezier(.2,.8,.2,1)", fill:"backwards" });
+      });
+    });
+  }
 })();

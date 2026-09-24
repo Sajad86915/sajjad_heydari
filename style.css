@@ -412,13 +412,13 @@ body.intro-lock{overflow:hidden}
 .reveal-group{position:relative}
  .reveal-item{
   opacity:0;
-  transform:translateX(42px);
+  transform:translate3d(0,var(--ry,34px),0) scale(.97);
   filter:blur(1.5px);
-  transition:opacity .55s cubic-bezier(.16,1,.3,1),
-             transform .55s cubic-bezier(.16,1,.3,1),
-             filter .55s cubic-bezier(.16,1,.3,1)
+  transition:opacity .55s cubic-bezier(.16,1,.3,1) var(--rd,0ms),
+             transform .6s cubic-bezier(.16,1,.3,1) var(--rd,0ms),
+             filter .55s cubic-bezier(.16,1,.3,1) var(--rd,0ms)
 }
-.reveal-item.in-view{opacity:1;transform:translateX(0);filter:blur(0)}
+.reveal-item.in-view{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
 
 /* ---- back to top button ---- */
 .back-to-top{
@@ -1116,3 +1116,51 @@ html[dir="ltr"] .info b{margin-right:0;margin-left:5px}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast-status{color:#6ee7a0;font-weight:800;white-space:nowrap}
 .toast-text{direction:ltr;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+
+/* ===================================================================
+   Motion: click effects + scroll animations
+   =================================================================== */
+
+/* --- click burst (ring + sparks) drawn at the pointer --- */
+.tap-fx{position:fixed;left:0;top:0;width:0;height:0;pointer-events:none;z-index:10050}
+.tap-ring{
+  position:absolute;left:0;top:0;width:var(--d,120px);height:var(--d,120px);
+  margin:calc(var(--d,120px) / -2) 0 0 calc(var(--d,120px) / -2);
+  border-radius:50%;border:2px solid var(--c,#d8b25b);
+  box-shadow:0 0 16px var(--c,#d8b25b),inset 0 0 16px var(--c,#d8b25b);
+  opacity:.95;transform:scale(.08);
+  animation:tapRing .55s cubic-bezier(.2,.8,.2,1) forwards
+}
+@keyframes tapRing{60%{opacity:.5}to{transform:scale(1);opacity:0}}
+.tap-dot{
+  position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;
+  border-radius:50%;background:var(--c,#d8b25b);box-shadow:0 0 8px var(--c,#d8b25b)
+}
+
+/* --- scroll progress bar --- */
+#scroll-progress{
+  position:fixed;left:0;right:0;top:0;height:3px;z-index:800;pointer-events:none;
+  background:linear-gradient(90deg,#ff1744,#ff7a00,#ffe600,#00e676,#00e5ff,#2979ff,#7c4dff,#f500ff);
+  box-shadow:0 0 10px rgba(124,77,255,.55);
+  transform-origin:left center;transform:scaleX(var(--p,0))
+}
+html[dir="rtl"] #scroll-progress{transform-origin:right center}
+
+/* --- scroll-linked hero / titles (both directions, driven by --sy) --- */
+.view-2007 .profile-top{
+  translate:0 calc(var(--sy,0) * .2px);
+  scale:calc(1 - min(var(--sy,0),420) * .0005);
+  opacity:calc(1 - min(var(--sy,0),520) * .0012);
+  will-change:translate,scale,opacity
+}
+.compact-brand,.view-label{
+  translate:0 calc(min(var(--sy,0),300) * .12px);
+  opacity:calc(1 - min(var(--sy,0),300) * .0016)
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tap-fx{display:none}
+  #scroll-progress{transition:none}
+  .view-2007 .profile-top,.compact-brand,.view-label{translate:none;scale:none;opacity:1}
+}
