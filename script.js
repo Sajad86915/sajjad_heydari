@@ -55,9 +55,17 @@ document.querySelectorAll("a[target='_blank']").forEach(a=>{
     intro.classList.add("hide");
     document.body.classList.remove("intro-lock");
     if(startGate) startGate.classList.add("hide");
-    if(hub) {
-      hub.hidden = false;
-      hub.classList.add("hub-visible");
+    function revealHub(){
+      if(hub) {
+        hub.hidden = false;
+        hub.classList.add("hub-visible");
+      }
+    }
+    /* 16 October: greeting screen first, then the hub */
+    if(window.siteBirthday && window.siteBirthday.shouldShow()){
+      window.siteBirthday.open(revealHub);
+    }else{
+      revealHub();
     }
   }
 

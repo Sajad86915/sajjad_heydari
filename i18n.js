@@ -40,6 +40,13 @@
       secIranMedia:"🎬 Iranian video & music",
       toTop:"Back to top",
       copyAria:"Copy {v} ID",
+      bdayKicker:"16 OCTOBER",
+      bdayTitle:"Happy Birthday, Sajjad!",
+      bdayMsg:"Today is your day. Another year older, another level unlocked. Wishing you a year full of success, laughter, bug-free code and great games. This whole site is celebrating with you today.",
+      bdayBtn:"Enter the site →",
+      bdayOld:"years old",
+      dateSolar:"Persian",
+      dateLunar:"Hijri",
       copied:"Copied ✓"
     },
     fa:{
@@ -69,6 +76,13 @@
       secIranMedia:"🎬 ویدیو و موزیک ایرانی",
       toTop:"برو بالا",
       copyAria:"کپی آیدی {v}",
+      bdayKicker:"۱۶ اکتبر",
+      bdayTitle:"تولدت مبارک سجاد!",
+      bdayMsg:"امروز روز توئه. یک سال بزرگ‌تر شدی و یک مرحله جلوتر رفتی. امیدوارم سال جدیدت پر از موفقیت، خنده، کدهای بدون باگ و بازی‌های خوب باشه. امروز کل این سایت با تو جشن می‌گیره.",
+      bdayBtn:"ورود به سایت ←",
+      bdayOld:"سالگی",
+      dateSolar:"شمسی",
+      dateLunar:"قمری",
       copied:"کپی شد ✓"
     },
     ar:{
@@ -98,6 +112,13 @@
       secIranMedia:"🎬 فيديو وموسيقى إيرانية",
       toTop:"إلى الأعلى",
       copyAria:"نسخ معرّف {v}",
+      bdayKicker:"١٦ أكتوبر",
+      bdayTitle:"عيد ميلاد سعيد يا سجاد!",
+      bdayMsg:"اليوم يومك. عام جديد ومرحلة جديدة. أتمنى لك سنة مليئة بالنجاح والضحك والأكواد بلا أخطاء والألعاب الممتعة. الموقع كله يحتفل معك اليوم.",
+      bdayBtn:"← الدخول إلى الموقع",
+      bdayOld:"سنة",
+      dateSolar:"هجري شمسي",
+      dateLunar:"هجري قمري",
       copied:"تم النسخ ✓"
     },
     ru:{
@@ -127,6 +148,13 @@
       secIranMedia:"🎬 Иранские видео и музыка",
       toTop:"Наверх",
       copyAria:"Копировать ID: {v}",
+      bdayKicker:"16 ОКТЯБРЯ",
+      bdayTitle:"С днём рождения, Саджад!",
+      bdayMsg:"Сегодня твой день. Ещё один год позади и новый уровень открыт. Желаю года, полного успехов, смеха, кода без багов и отличных игр. Весь этот сайт сегодня празднует вместе с тобой.",
+      bdayBtn:"Войти на сайт →",
+      bdayOld:"лет",
+      dateSolar:"Персидский",
+      dateLunar:"Хиджра",
       copied:"Скопировано ✓"
     }
   };
