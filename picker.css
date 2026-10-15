@@ -82,3 +82,71 @@ html[lang="zh"] *,html[lang="ja"] *,html[lang="ko"] *,html[lang="hi"] *{letter-s
   .hub-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(300px,100%)}
   .hub-control{min-width:0}
 }
+
+/* ===== Link click animations (see animations.js) ===== */
+.la-host{position:relative}
+.la-ripple{position:absolute;border-radius:50%;pointer-events:none;z-index:3;
+  background:radial-gradient(circle,var(--ring-b,#d8b25b) 0%,var(--ring-a,rgba(181,108,255,.6)) 45%,transparent 70%);
+  opacity:0;transform:scale(0);animation:laRipple .62s ease-out forwards}
+.la-h-ripple{overflow:hidden}
+@keyframes laRipple{0%{transform:scale(0);opacity:.75}100%{transform:scale(1);opacity:0}}
+
+.la-h-pulse{animation:laPulse .62s ease-out}
+@keyframes laPulse{
+  0%  {transform:scale(1);   box-shadow:0 0 0 0 var(--ring-b,#d8b25b)}
+  35% {transform:scale(.97); box-shadow:0 0 0 10px var(--ring-a,rgba(181,108,255,.45))}
+  70% {transform:scale(1.02);box-shadow:0 0 0 22px rgba(0,0,0,0)}
+  100%{transform:scale(1);   box-shadow:0 0 0 0 rgba(0,0,0,0)}
+}
+
+.la-h-flip{animation:laFlip .64s cubic-bezier(.4,.1,.2,1)}
+@keyframes laFlip{
+  0%  {transform:perspective(700px) rotateX(0deg)}
+  50% {transform:perspective(700px) rotateX(180deg) scale(.96)}
+  100%{transform:perspective(700px) rotateX(360deg)}
+}
+
+.la-h-jelly{animation:laJelly .62s ease-out}
+@keyframes laJelly{
+  0%  {transform:scale(1,1)}
+  25% {transform:scale(1.14,.84)}
+  45% {transform:scale(.9,1.12)}
+  65% {transform:scale(1.05,.96)}
+  82% {transform:scale(.98,1.02)}
+  100%{transform:scale(1,1)}
+}
+
+.la-h-burst{position:relative}
+.la-spark{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;pointer-events:none;z-index:4;
+  opacity:0;animation:laSpark .62s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes laSpark{
+  0%  {transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}
+}
+
+/* ===== Animation picker ===== */
+.anim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.anim-opt{
+  display:flex;align-items:center;gap:10px;min-height:54px;padding:8px 14px;border-radius:16px;cursor:pointer;
+  font:inherit;font-size:15px;font-weight:700;color:var(--site-text);text-align:start;
+  background:var(--card-bg);border:1px solid var(--site-border);
+  transition:transform .2s ease,border-color .2s ease,background .2s ease
+}
+.anim-opt:hover{transform:translateY(-2px);border-color:rgba(216,178,91,.6)}
+.anim-opt:active{transform:scale(.96)}
+.anim-opt[aria-pressed="true"]{border-color:#d8b25b;background:rgba(216,178,91,.14);color:#d8b25b}
+body.light-theme .anim-opt[aria-pressed="true"]{color:#70550b}
+.anim-ico{font-size:20px;line-height:1;flex:none;width:26px;text-align:center}
+.anim-demo{
+  position:relative;display:flex;align-items:center;justify-content:center;gap:8px;margin:16px auto 0;
+  width:min(260px,100%);min-height:54px;padding:0 18px;border-radius:16px;cursor:pointer;
+  font:inherit;font-weight:700;font-size:15px;color:var(--site-text);
+  background:var(--card-bg);border:1px solid var(--site-border);
+  --ring-a:rgba(181,108,255,.55);--ring-b:#d8b25b
+}
+.anim-demo:focus-visible{outline:2px solid #d8b25b;outline-offset:2px}
+
+/* five home buttons on phones: the last one sits centred */
+@media (max-width:520px){
+  .hub-controls .hub-control:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}
+}

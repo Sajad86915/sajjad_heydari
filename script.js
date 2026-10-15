@@ -1,37 +1,5 @@
 
-/* Link cards: play a clear "launch" animation first, then open the link.
-   (Without the short delay the new tab opens instantly and the animation is never seen.) */
-(function(){
-  var LAUNCH_DELAY = 420; /* ms */
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  document.addEventListener("click", function(e){
-    if(e.defaultPrevented) return;
-    var a = e.target.closest ? e.target.closest('a[target="_blank"]') : null;
-    if(!a) return;
-    var card = a.closest(".social, .game-link");
-    if(!card) return;
-    /* new-tab shortcuts keep their normal browser behaviour */
-    if(e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-
-    e.preventDefault();
-    if(card._launching) return;
-    card._launching = true;
-
-    card.classList.remove("link-launch");
-    void card.offsetWidth; /* restart the animation */
-    card.classList.add("link-launch");
-
-    var href = a.href;
-    setTimeout(function(){
-      var w = window.open(href, "_blank");
-      if(w){ try{ w.opener = null; }catch(err){} }
-      else{ window.location.href = href; } /* pop-up blocked: still open the link */
-      card.classList.remove("link-launch");
-      card._launching = false;
-    }, reduce ? 0 : LAUNCH_DELAY);
-  });
-})();
+/* Link click animations live in animations.js */
 
 document.querySelectorAll("a[target='_blank']").forEach(a=>{
   a.addEventListener("click",()=>{});
@@ -440,10 +408,10 @@ function copyText(text){
   function press(el){
     if(!canAnimate || el.matches(NO_POP)) return;
     el.animate([
-      { scale:"1",    boxShadow:"0 0 0 0 rgba(216,178,91,.55)" },
-      { scale:".92",  boxShadow:"0 0 0 4px rgba(216,178,91,.35)", offset:.35 },
-      { scale:"1.03", boxShadow:"0 0 0 9px rgba(216,178,91,.10)", offset:.7 },
-      { scale:"1",    boxShadow:"0 0 0 12px rgba(216,178,91,0)" }
+      { transform:"scale(1)",    boxShadow:"0 0 0 0 rgba(216,178,91,.55)" },
+      { transform:"scale(.92)",  boxShadow:"0 0 0 4px rgba(216,178,91,.35)", offset:.35 },
+      { transform:"scale(1.03)", boxShadow:"0 0 0 9px rgba(216,178,91,.10)", offset:.7 },
+      { transform:"scale(1)",    boxShadow:"0 0 0 12px rgba(216,178,91,0)" }
     ], { duration:420, easing:"cubic-bezier(.2,.8,.2,1)" });
   }
 
@@ -475,20 +443,20 @@ function copyText(text){
   if(canAnimate){
     if(themeBtn) themeBtn.addEventListener("click", function(){
       var i = icon("theme-toggle");
-      if(i) i.animate([{ rotate:"0deg", scale:"1" },{ rotate:"180deg", scale:"1.35", offset:.5 },{ rotate:"360deg", scale:"1" }],
+      if(i) i.animate([{ transform:"rotate(0deg) scale(1)" },{ transform:"rotate(180deg) scale(1.35)", offset:.5 },{ transform:"rotate(360deg) scale(1)" }],
                       { duration:620, easing:"cubic-bezier(.2,.8,.2,1)" });
     });
     if(colorBtn) colorBtn.addEventListener("click", function(){
       var i = icon("color-toggle");
-      if(i) i.animate([{ scale:"1", rotate:"0deg" },{ scale:"1.5", rotate:"120deg", offset:.45 },{ scale:"1", rotate:"360deg" }],
+      if(i) i.animate([{ transform:"rotate(0deg) scale(1)" },{ transform:"rotate(120deg) scale(1.5)", offset:.45 },{ transform:"rotate(360deg) scale(1)" }],
                       { duration:620, easing:"cubic-bezier(.2,.8,.2,1)" });
     });
     if(topBtn) topBtn.addEventListener("click", function(){
       topBtn.animate([
-        { translate:"0 0", opacity:1 },
-        { translate:"0 -22px", opacity:0, offset:.45 },
-        { translate:"0 18px", opacity:0, offset:.46 },
-        { translate:"0 0", opacity:1 }
+        { transform:"translateY(0)", opacity:1 },
+        { transform:"translateY(-22px)", opacity:0, offset:.45 },
+        { transform:"translateY(18px)", opacity:0, offset:.46 },
+        { transform:"translateY(0)", opacity:1 }
       ], { duration:600, easing:"cubic-bezier(.2,.8,.2,1)" });
     });
 
@@ -499,8 +467,8 @@ function copyText(text){
         var r = el.getBoundingClientRect();
         if(!r.width || r.bottom < 0 || r.top > vh) return;
         el.animate([
-          { opacity:0, translate:"0 10px" },
-          { opacity:1, translate:"0 0" }
+          { opacity:0, transform:"translateY(10px)" },
+          { opacity:1, transform:"translateY(0)" }
         ], { duration:420, delay:Math.min(n++, 14) * 28, easing:"cubic-bezier(.2,.8,.2,1)", fill:"backwards" });
       });
     });

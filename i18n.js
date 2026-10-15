@@ -62,6 +62,16 @@
       pickFont:"Choose a font (1–9)",
       close:"Close",
       fontSample:"Sample text",
+      animation:"ANIMATION",
+      pickAnim:"Choose a click animation",
+      animDemo:"Tap to preview",
+      animOff:"None",
+      animLaunch:"Launch",
+      animRipple:"Ripple",
+      animPulse:"Pulse",
+      animFlip:"Flip",
+      animBurst:"Burst",
+      animJelly:"Jelly",
       copied:"Copied ✓"
     },
     fa:{
@@ -104,6 +114,16 @@
       pickFont:"انتخاب فونت (۱ تا ۹)",
       close:"بستن",
       fontSample:"متن نمونه",
+      animation:"انیمیشن",
+      pickAnim:"انتخاب انیمیشن کلیک",
+      animDemo:"برای پیش‌نمایش بزن",
+      animOff:"بدون انیمیشن",
+      animLaunch:"پرتاب",
+      animRipple:"موج",
+      animPulse:"ضربان",
+      animFlip:"چرخش",
+      animBurst:"انفجار",
+      animJelly:"ژله‌ای",
       copied:"کپی شد ✓"
     },
     ar:{
@@ -146,6 +166,16 @@
       pickFont:"اختر خطًا (١–٩)",
       close:"إغلاق",
       fontSample:"نص تجريبي",
+      animation:"حركة",
+      pickAnim:"اختر حركة النقر",
+      animDemo:"اضغط للمعاينة",
+      animOff:"بدون",
+      animLaunch:"إطلاق",
+      animRipple:"تموّج",
+      animPulse:"نبض",
+      animFlip:"قلب",
+      animBurst:"انفجار",
+      animJelly:"هلام",
       copied:"تم النسخ ✓"
     },
     ru:{
@@ -188,6 +218,16 @@
       pickFont:"Выберите шрифт (1–9)",
       close:"Закрыть",
       fontSample:"Пример текста",
+      animation:"АНИМАЦИЯ",
+      pickAnim:"Выберите анимацию клика",
+      animDemo:"Нажмите для просмотра",
+      animOff:"Нет",
+      animLaunch:"Запуск",
+      animRipple:"Волна",
+      animPulse:"Пульс",
+      animFlip:"Переворот",
+      animBurst:"Взрыв",
+      animJelly:"Желе",
       copied:"Скопировано ✓"
     },
     tr:{
@@ -242,7 +282,11 @@
       pickLang:"Dil seç",
       pickFont:"Yazı tipi seç (1–9)",
       close:"Kapat",
-      fontSample:"Örnek yazı"
+      fontSample:"Örnek yazı",
+      animation:"ANİMASYON",
+      pickAnim:"Tıklama animasyonu seç",
+      animDemo:"Önizlemek için dokun",
+      animOff:"Yok"
     },
     az:{
       clickToEnter:"daxil olmaq üçün klikləyin...",
@@ -296,7 +340,11 @@
       pickLang:"Dil seçin",
       pickFont:"Şrift seçin (1–9)",
       close:"Bağla",
-      fontSample:"Nümunə mətn"
+      fontSample:"Nümunə mətn",
+      animation:"ANİMASİYA",
+      pickAnim:"Klik animasiyasını seçin",
+      animDemo:"Baxmaq üçün toxunun",
+      animOff:"Yoxdur"
     },
     ur:{
       clickToEnter:"داخل ہونے کے لیے کلک کریں...",
@@ -350,7 +398,11 @@
       pickLang:"زبان منتخب کریں",
       pickFont:"فونٹ منتخب کریں (۱–۹)",
       close:"بند کریں",
-      fontSample:"نمونہ متن"
+      fontSample:"نمونہ متن",
+      animation:"اینیمیشن",
+      pickAnim:"کلک اینیمیشن منتخب کریں",
+      animDemo:"پیش نظارہ کے لیے دبائیں",
+      animOff:"کوئی نہیں"
     },
     ckb:{
       clickToEnter:"بۆ چوونەژوورەوە کرتە بکە...",
@@ -404,7 +456,11 @@
       pickLang:"زمان هەڵبژێرە",
       pickFont:"فۆنت هەڵبژێرە (١–٩)",
       close:"داخستن",
-      fontSample:"دەقی نموونە"
+      fontSample:"دەقی نموونە",
+      animation:"ئەنیمەیشن",
+      pickAnim:"ئەنیمەیشنی کلیک هەڵبژێرە",
+      animDemo:"بۆ پیشاندان کرتە بکە",
+      animOff:"هیچ"
     },
     es:{
       clickToEnter:"haz clic para entrar...",
@@ -458,7 +514,11 @@
       pickLang:"Elige un idioma",
       pickFont:"Elige una fuente (1–9)",
       close:"Cerrar",
-      fontSample:"Texto de muestra"
+      fontSample:"Texto de muestra",
+      animation:"ANIMACIÓN",
+      pickAnim:"Elige una animación de clic",
+      animDemo:"Toca para previsualizar",
+      animOff:"Ninguna"
     },
     fr:{
       clickToEnter:"cliquez pour entrer...",
@@ -512,7 +572,11 @@
       pickLang:"Choisir la langue",
       pickFont:"Choisir une police (1–9)",
       close:"Fermer",
-      fontSample:"Texte d'exemple"
+      fontSample:"Texte d'exemple",
+      animation:"ANIMATION",
+      pickAnim:"Choisir une animation de clic",
+      animDemo:"Touchez pour prévisualiser",
+      animOff:"Aucune"
     },
     de:{
       clickToEnter:"klicken zum Eintreten...",
@@ -566,7 +630,11 @@
       pickLang:"Sprache wählen",
       pickFont:"Schrift wählen (1–9)",
       close:"Schließen",
-      fontSample:"Beispieltext"
+      fontSample:"Beispieltext",
+      animation:"ANIMATION",
+      pickAnim:"Klick-Animation wählen",
+      animDemo:"Zum Testen tippen",
+      animOff:"Keine"
     },
     it:{
       clickToEnter:"clicca per entrare...",
@@ -620,7 +688,11 @@
       pickLang:"Scegli la lingua",
       pickFont:"Scegli un carattere (1–9)",
       close:"Chiudi",
-      fontSample:"Testo di esempio"
+      fontSample:"Testo di esempio",
+      animation:"ANIMAZIONE",
+      pickAnim:"Scegli un'animazione al clic",
+      animDemo:"Tocca per l'anteprima",
+      animOff:"Nessuna"
     },
     pt:{
       clickToEnter:"clique para entrar...",
@@ -674,7 +746,11 @@
       pickLang:"Escolha o idioma",
       pickFont:"Escolha uma fonte (1–9)",
       close:"Fechar",
-      fontSample:"Texto de exemplo"
+      fontSample:"Texto de exemplo",
+      animation:"ANIMAÇÃO",
+      pickAnim:"Escolha uma animação de clique",
+      animDemo:"Toque para pré-visualizar",
+      animOff:"Nenhuma"
     },
     zh:{
       clickToEnter:"点击进入...",
@@ -728,7 +804,11 @@
       pickLang:"选择语言",
       pickFont:"选择字体(1–9)",
       close:"关闭",
-      fontSample:"示例文字"
+      fontSample:"示例文字",
+      animation:"动画",
+      pickAnim:"选择点击动画",
+      animDemo:"点击预览",
+      animOff:"无"
     },
     ja:{
       clickToEnter:"クリックして入る...",
@@ -782,7 +862,11 @@
       pickLang:"言語を選択",
       pickFont:"フォントを選択(1–9)",
       close:"閉じる",
-      fontSample:"サンプルテキスト"
+      fontSample:"サンプルテキスト",
+      animation:"アニメーション",
+      pickAnim:"クリックアニメーションを選択",
+      animDemo:"タップしてプレビュー",
+      animOff:"なし"
     },
     ko:{
       clickToEnter:"클릭하여 입장...",
@@ -836,7 +920,11 @@
       pickLang:"언어 선택",
       pickFont:"글꼴 선택 (1–9)",
       close:"닫기",
-      fontSample:"예시 텍스트"
+      fontSample:"예시 텍스트",
+      animation:"애니메이션",
+      pickAnim:"클릭 애니메이션 선택",
+      animDemo:"눌러서 미리보기",
+      animOff:"없음"
     },
     hi:{
       clickToEnter:"प्रवेश के लिए क्लिक करें...",
@@ -890,7 +978,11 @@
       pickLang:"भाषा चुनें",
       pickFont:"फ़ॉन्ट चुनें (1–9)",
       close:"बंद करें",
-      fontSample:"नमूना पाठ"
+      fontSample:"नमूना पाठ",
+      animation:"एनिमेशन",
+      pickAnim:"क्लिक एनिमेशन चुनें",
+      animDemo:"पूर्वावलोकन के लिए टैप करें",
+      animOff:"कोई नहीं"
     },
     id:{
       clickToEnter:"klik untuk masuk...",
@@ -944,7 +1036,11 @@
       pickLang:"Pilih bahasa",
       pickFont:"Pilih font (1–9)",
       close:"Tutup",
-      fontSample:"Teks contoh"
+      fontSample:"Teks contoh",
+      animation:"ANIMASI",
+      pickAnim:"Pilih animasi klik",
+      animDemo:"Ketuk untuk pratinjau",
+      animOff:"Tidak ada"
     }
   };
 

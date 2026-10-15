@@ -128,6 +128,41 @@
     }
   }
 
+  var ANIM_ICON = { launch:"🚀", ripple:"💧", pulse:"💗", flip:"🔄", burst:"✨", jelly:"🍮", off:"⛔" };
+  var ANIM_KEY  = { launch:"animLaunch", ripple:"animRipple", pulse:"animPulse", flip:"animFlip", burst:"animBurst", jelly:"animJelly", off:"animOff" };
+
+  function renderAnim(){
+    titleEl.textContent = tr("pickAnim");
+    bodyEl.innerHTML = "";
+    var A = window.SiteAnim;
+    if(!A) return;
+    var grid = document.createElement("div");
+    grid.className = "anim-grid";
+    var demo = document.createElement("button");
+    demo.type = "button";
+    demo.className = "anim-demo";
+    demo.innerHTML = "<span>↗</span><span>" + tr("animDemo") + "</span>";
+    demo.addEventListener("click", function(ev){ A.play(demo, ev); });
+    A.list.forEach(function(a){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "anim-opt";
+      btn.setAttribute("data-id", a.id);
+      btn.setAttribute("aria-pressed", a.id === A.get() ? "true" : "false");
+      var ic = document.createElement("span"); ic.className = "anim-ico"; ic.setAttribute("aria-hidden", "true"); ic.textContent = ANIM_ICON[a.id];
+      var nm = document.createElement("span"); nm.textContent = tr(ANIM_KEY[a.id]);
+      btn.appendChild(ic); btn.appendChild(nm);
+      btn.addEventListener("click", function(ev){
+        A.set(a.id);
+        grid.querySelectorAll(".anim-opt").forEach(function(b){ b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+        A.play(demo, null);
+      });
+      grid.appendChild(btn);
+    });
+    bodyEl.appendChild(grid);
+    bodyEl.appendChild(demo);
+  }
+
   function renderLang(){
     titleEl.textContent = tr("pickLang");
     bodyEl.innerHTML = "";
@@ -153,7 +188,7 @@
   function open(which){
     kind = which;
     lastFocus = document.activeElement;
-    if(which === "font"){ loadAll(); renderFont(); } else { renderLang(); }
+    if(which === "font"){ loadAll(); renderFont(); } else if(which === "anim"){ renderAnim(); } else { renderLang(); }
     picker.hidden = false;
     body.classList.add("picker-lock");
     void picker.offsetWidth;
@@ -174,6 +209,8 @@
   var fontBtn = document.getElementById("font-open");
   if(langBtn) langBtn.addEventListener("click", function(){ open("lang"); });
   if(fontBtn) fontBtn.addEventListener("click", function(){ open("font"); });
+  var animBtn = document.getElementById("anim-open");
+  if(animBtn) animBtn.addEventListener("click", function(){ open("anim"); });
   picker.querySelectorAll("[data-picker-close]").forEach(function(el){ el.addEventListener("click", close); });
 
   /* keyboard: Esc closes, 1–9 picks a font (Latin, Persian and Arabic digits), Tab stays inside */
@@ -197,6 +234,6 @@
   /* keep an open picker in sync when the language changes */
   document.addEventListener("sitelangchange", function(){
     if(picker.hidden) return;
-    if(kind === "font") renderFont(); else if(kind === "lang") renderLang();
+    if(kind === "font") renderFont(); else if(kind === "anim") renderAnim(); else if(kind === "lang") renderLang();
   });
 })();
