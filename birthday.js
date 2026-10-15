@@ -8,25 +8,33 @@
   var BIRTH = { year:2007, month:9, day:16 }; /* month is 0-based: 9 = October */
 
   /* ---------- date helpers ---------- */
-  var LOCALE = { en:"en-US", fa:"fa-IR", ar:"ar-SA", ru:"ru-RU" };
+  var LOCALE = { en:"en-US", fa:"fa-IR", ar:"ar-SA", ru:"ru-RU", tr:"tr-TR", az:"az-Latn-AZ", ur:"ur-PK", ckb:"ckb-IQ",
+                 es:"es-ES", fr:"fr-FR", de:"de-DE", it:"it-IT", pt:"pt-BR", zh:"zh-CN", ja:"ja-JP", ko:"ko-KR", hi:"hi-IN", id:"id-ID" };
+  var LATIN_DIGITS = { en:1, ru:1, tr:1, az:1, es:1, fr:1, de:1, it:1, pt:1, id:1 };
+  var MANUAL_ORDER = { en:1, fa:1, ckb:1 }; /* the browser's own pattern is odd for these */
   var CAL = { greg:"gregory", solar:"persian", lunar:"islamic-umalqura" };
 
   function lang(){ return (window.getSiteLang && window.getSiteLang()) || "en"; }
 
   function fmt(date, cal, withWeekday){
     var l = lang();
-    var loc = LOCALE[l] + "-u-ca-" + CAL[cal] + (l === "en" || l === "ru" ? "-nu-latn" : "");
+    var loc = (LOCALE[l] || "en-US") + "-u-ca-" + CAL[cal] + (LATIN_DIGITS[l] ? "-nu-latn" : "");
     var opts = { day:"numeric", month:"long", year:"numeric" };
     if(withWeekday) opts.weekday = "long";
     var parts;
     try{ parts = new Intl.DateTimeFormat(loc, opts).formatToParts(date); }
     catch(e){ return date.toDateString(); }
-    var p = {};
-    parts.forEach(function(x){ if(x.type !== "literal" && x.type !== "era") p[x.type] = x.value; });
-    var out = l === "en"
-      ? (withWeekday ? p.weekday + ", " : "") + p.month + " " + p.day + ", " + p.year
-      : (withWeekday ? p.weekday + "، " : "") + p.day + " " + p.month + " " + p.year;
-    return out;
+    if(MANUAL_ORDER[l]){
+      var p = {};
+      parts.forEach(function(x){ if(x.type !== "literal" && x.type !== "era") p[x.type] = x.value; });
+      return l === "en"
+        ? (withWeekday ? p.weekday + ", " : "") + p.month + " " + p.day + ", " + p.year
+        : (withWeekday ? p.weekday + "\u060C " : "") + p.day + " " + p.month + " " + p.year;
+    }
+    /* native pattern of the language, minus the era tag (AP / AH ...) */
+    return parts.filter(function(x){ return x.type !== "era"; })
+      .map(function(x){ return x.value; }).join("")
+      .replace(/\s+/g, " ").replace(/^[\s,\u060C.]+|[\s,\u060C]+$/g, "");
   }
 
   var lastKey = "";
@@ -65,8 +73,8 @@
   }
   function digits(n){
     var l = lang();
-    if(l === "fa") return n.toLocaleString("fa-IR", {useGrouping:false});
-    if(l === "ar") return n.toLocaleString("ar-EG", {useGrouping:false});
+    if(l === "fa" || l === "ur") return n.toLocaleString("fa-IR", {useGrouping:false});
+    if(l === "ar" || l === "ckb") return n.toLocaleString("ar-EG", {useGrouping:false});
     return String(n);
   }
   function renderBirthday(){

@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&amp;family=Vazirmatn:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="style.css" rel="stylesheet"/>
 <link href="birthday.css" rel="stylesheet"/>
+<link href="picker.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="start-gate">
@@ -70,12 +71,14 @@
 <span class="hub-control-icon">◉</span>
 <span class="hub-control-text">COLOR</span>
 </button>
-</div>
-<div aria-label="Language" class="lang-switch" data-i18n-aria="langAria" role="group">
-<button class="lang-btn" data-lang="en" lang="en" type="button">English</button>
-<button class="lang-btn" data-lang="fa" lang="fa" type="button">فارسی</button>
-<button class="lang-btn" data-lang="ar" lang="ar" type="button">العربية</button>
-<button class="lang-btn" data-lang="ru" lang="ru" type="button">Русский</button>
+<button class="hub-control" id="lang-open" type="button" aria-haspopup="dialog">
+<span class="hub-control-icon">🌐</span>
+<span class="hub-control-text" data-i18n="language">LANGUAGE</span>
+</button>
+<button class="hub-control" id="font-open" type="button" aria-haspopup="dialog">
+<span class="hub-control-icon">Aa</span>
+<span class="hub-control-text" data-i18n="font">FONT</span>
+</button>
 </div>
 <div class="hub-grid">
 <button class="hub-card hub-2007" data-view="2007" type="button">
@@ -290,11 +293,23 @@
 <button class="view-back bottom-back" data-back="" type="button" data-i18n="back">← BACK</button>
 </div>
 </main>
+<!-- ===== Language / Font picker ===== -->
+<div class="picker" hidden id="picker" role="dialog" aria-modal="true" aria-labelledby="picker-title">
+<div class="picker-backdrop" data-picker-close></div>
+<div class="picker-panel">
+<div class="picker-head">
+<h2 id="picker-title"></h2>
+<button aria-label="Close" class="picker-close" data-picker-close type="button">✕</button>
+</div>
+<div class="picker-body"></div>
+</div>
+</div>
 <button aria-label="Back to top" data-i18n-aria="toTop" class="back-to-top" id="back-to-top" type="button">↑</button>
 <div aria-hidden="true" id="scroll-progress"></div>
 <div aria-live="polite" class="toast" id="toast" role="status"><span class="toast-status"></span><span class="toast-text"></span></div>
 <script src="i18n.js"></script>
 <script src="birthday.js"></script>
+<script src="picker.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
