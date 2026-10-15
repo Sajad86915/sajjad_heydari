@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
-<html dir="ltr" lang="en">
+<html class="notranslate" dir="ltr" lang="en" translate="no">
 <head>
 <meta charset="utf-8"/>
+<meta content="notranslate" name="google"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="#08090d" name="theme-color"/>
 <title>sajjad heydari</title>
@@ -12,8 +13,9 @@
 <link href="style.css" rel="stylesheet"/>
 <link href="birthday.css" rel="stylesheet"/>
 <link href="picker.css" rel="stylesheet"/>
+<link href="protect.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="notranslate" translate="no">
 <div id="start-gate">
 <button id="start-btn" type="button">
 <span class="rainbow-text start-click-text" data-i18n="clickToEnter">click to enter...</span>
@@ -311,9 +313,11 @@
 <button aria-label="Back to top" data-i18n-aria="toTop" class="back-to-top" id="back-to-top" type="button">↑</button>
 <div aria-hidden="true" id="scroll-progress"></div>
 <div aria-live="polite" class="toast" id="toast" role="status"><span class="toast-status"></span><span class="toast-text"></span></div>
+<div aria-hidden="true" id="shield"><span>🔒</span></div>
 <script src="i18n.js"></script>
 <script src="birthday.js"></script>
 <script src="animations.js"></script>
+<script src="protect.js"></script>
 <script src="picker.js"></script>
 <script src="script.js"></script>
 </body>

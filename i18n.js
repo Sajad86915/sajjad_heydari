@@ -72,6 +72,12 @@
       animFlip:"Flip",
       animBurst:"Burst",
       animJelly:"Jelly",
+      animShake:"Shake",
+      animGlow:"Glow",
+      animSwing:"Swing",
+      animPop:"Pop",
+      animConfetti:"Confetti",
+      animHearts:"Hearts",
       copied:"Copied ✓"
     },
     fa:{
@@ -124,6 +130,12 @@
       animFlip:"چرخش",
       animBurst:"انفجار",
       animJelly:"ژله‌ای",
+      animShake:"لرزش",
+      animGlow:"درخشش",
+      animSwing:"تاب",
+      animPop:"جهش",
+      animConfetti:"کنفتی",
+      animHearts:"قلب",
       copied:"کپی شد ✓"
     },
     ar:{
@@ -176,6 +188,12 @@
       animFlip:"قلب",
       animBurst:"انفجار",
       animJelly:"هلام",
+      animShake:"اهتزاز",
+      animGlow:"توهج",
+      animSwing:"تأرجح",
+      animPop:"ظهور",
+      animConfetti:"قصاصات",
+      animHearts:"قلوب",
       copied:"تم النسخ ✓"
     },
     ru:{
@@ -228,6 +246,12 @@
       animFlip:"Переворот",
       animBurst:"Взрыв",
       animJelly:"Желе",
+      animShake:"Тряска",
+      animGlow:"Свечение",
+      animSwing:"Качание",
+      animPop:"Хлопок",
+      animConfetti:"Конфетти",
+      animHearts:"Сердца",
       copied:"Скопировано ✓"
     },
     tr:{

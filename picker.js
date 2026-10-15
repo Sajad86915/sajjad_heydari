@@ -128,8 +128,8 @@
     }
   }
 
-  var ANIM_ICON = { launch:"🚀", ripple:"💧", pulse:"💗", flip:"🔄", burst:"✨", jelly:"🍮", off:"⛔" };
-  var ANIM_KEY  = { launch:"animLaunch", ripple:"animRipple", pulse:"animPulse", flip:"animFlip", burst:"animBurst", jelly:"animJelly", off:"animOff" };
+  var ANIM_ICON = { launch:"🚀", ripple:"💧", pulse:"💗", flip:"🔄", burst:"✨", jelly:"🍮", shake:"📳", glow:"💡", swing:"🎐", pop:"🎈", confetti:"🎉", hearts:"💖", off:"⛔" };
+  var ANIM_KEY  = { launch:"animLaunch", ripple:"animRipple", pulse:"animPulse", flip:"animFlip", burst:"animBurst", jelly:"animJelly", shake:"animShake", glow:"animGlow", swing:"animSwing", pop:"animPop", confetti:"animConfetti", hearts:"animHearts", off:"animOff" };
 
   function renderAnim(){
     titleEl.textContent = tr("pickAnim");

@@ -6,15 +6,21 @@
    ========================================================== */
 (function(){
   var KEY = "site-anim";
-  var DEFAULT = "launch";
+  var DEFAULT = "off";
   var LIST = [
-    { id:"launch", ms:500 },
-    { id:"ripple", ms:620 },
-    { id:"pulse",  ms:620 },
-    { id:"flip",   ms:640 },
-    { id:"burst",  ms:640 },
-    { id:"jelly",  ms:620 },
-    { id:"off",    ms:0   }
+    { id:"off",      ms:0   },
+    { id:"launch",   ms:500 },
+    { id:"ripple",   ms:620 },
+    { id:"pulse",    ms:620 },
+    { id:"flip",     ms:640 },
+    { id:"burst",    ms:640 },
+    { id:"jelly",    ms:620 },
+    { id:"shake",    ms:520 },
+    { id:"glow",     ms:640 },
+    { id:"swing",    ms:700 },
+    { id:"pop",      ms:480 },
+    { id:"confetti", ms:760 },
+    { id:"hearts",   ms:800 }
   ];
   var BY = {}; LIST.forEach(function(a){ BY[a.id] = a; });
 
@@ -34,12 +40,12 @@
     try{ localStorage.setItem(KEY, id); }catch(e){}
   }
 
-  function clean(el, cls, extra){
+  function clean(el, cls, extra, ms){
     setTimeout(function(){
       el.classList.remove(cls, "la-host");
       el._la = false;
       (extra || []).forEach(function(n){ if(n && n.parentNode) n.parentNode.removeChild(n); });
-    }, 700);
+    }, (ms || 500) + 250);
   }
 
   /* play the animation on `el`; returns how long (ms) to wait before following the link */
@@ -87,7 +93,36 @@
         el.appendChild(p); nodes.push(p);
       }
     }
-    clean(el, "la-h-" + id, nodes);
+    if(id === "confetti"){
+      var COL = ["#b56cff","#d8b25b","#ff6b9d","#4fd1c5","#6aa7ff","#ffffff","#ff9f5a"];
+      for(var c = 0; c < 26; c++){
+        var q = document.createElement("span");
+        q.className = "la-piece";
+        q.style.left = x + "px"; q.style.top = y + "px";
+        q.style.background = COL[c % COL.length];
+        q.style.setProperty("--dx", Math.round((Math.random() - .5) * 170) + "px");
+        q.style.setProperty("--dy", Math.round(40 + Math.random() * 110) + "px");
+        q.style.setProperty("--up", Math.round(30 + Math.random() * 40) + "px");
+        q.style.setProperty("--rot", Math.round((Math.random() - .5) * 900) + "deg");
+        q.style.animationDelay = (Math.random() * 80) + "ms";
+        el.appendChild(q); nodes.push(q);
+      }
+    }
+    if(id === "hearts"){
+      var EM = ["❤️","💖","💜","💛","✨"];
+      for(var k = 0; k < 9; k++){
+        var hh = document.createElement("span");
+        hh.className = "la-heart";
+        hh.textContent = EM[k % EM.length];
+        hh.style.left = (x + (Math.random() - .5) * 70) + "px"; hh.style.top = y + "px";
+        hh.style.setProperty("--dx", Math.round((Math.random() - .5) * 60) + "px");
+        hh.style.setProperty("--dy", "-" + Math.round(60 + Math.random() * 60) + "px");
+        hh.style.fontSize = (14 + Math.random() * 12) + "px";
+        hh.style.animationDelay = (Math.random() * 160) + "ms";
+        el.appendChild(hh); nodes.push(hh);
+      }
+    }
+    clean(el, "la-h-" + id, nodes, a.ms);
     return a.ms - 140;
   }
 
