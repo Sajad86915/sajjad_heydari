@@ -14,3 +14,10 @@ img,svg,a{-webkit-user-drag:none;user-drag:none}
 }
 #shield.show{display:flex}
 body.light-theme #shield{background:#f2f2f2}
+
+/* tiled watermark with the capture time: a screenshot that leaks can be traced */
+#watermark{
+  position:fixed;inset:0;z-index:2147482000;pointer-events:none;
+  mix-blend-mode:difference;opacity:.11;background-repeat:repeat
+}
+@media print{#watermark{display:none !important}}

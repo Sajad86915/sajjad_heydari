@@ -202,4 +202,20 @@
   };
 
   if(btn) btn.addEventListener("click", close);
+
+  /* ---------- midnight: if the page is open when 16 October starts, greet right then ---------- */
+  function dayKey(){ var n = new Date(); return n.getFullYear() + "-" + n.getMonth() + "-" + n.getDate(); }
+  var lastDay = dayKey();
+  setInterval(function(){
+    var k = dayKey();
+    if(k === lastDay) return;
+    lastDay = k;
+    var n = new Date();
+    var isDay = n.getMonth() === BIRTH.month && n.getDate() === BIRTH.day;
+    if(!isDay || !screen) return;
+    /* still in the intro: the normal flow shows the greeting before the hub */
+    if(document.body.classList.contains("intro-lock")) return;
+    if(!screen.hidden) return; /* already showing */
+    window.siteBirthday.open(null);
+  }, 1000);
 })();

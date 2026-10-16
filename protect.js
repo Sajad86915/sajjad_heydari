@@ -58,6 +58,35 @@
     if((e.ctrlKey || e.metaKey) && (k === "p" || k === "s" || k === "u")){ e.preventDefault(); cover(1200); }
   }, true);
 
+  /* more shortcuts: dev tools / inspect */
+  document.addEventListener("keydown", function(e){
+    var k = (e.key || "").toLowerCase();
+    var devtools = e.key === "F12" ||
+      ((e.ctrlKey || e.metaKey) && e.shiftKey && (k === "i" || k === "j" || k === "c")) ||
+      (e.metaKey && e.altKey && (k === "i" || k === "j" || k === "c"));
+    if(devtools){ e.preventDefault(); cover(1500); }
+  }, true);
+
+  /* focus can be taken without a blur event on some systems: re-check regularly */
+  setInterval(function(){
+    if(document.hidden || !document.hasFocus()){ held = true; cover(); }
+    else if(held){ held = false; uncover(); }
+  }, 400);
+
+  /* ---------- watermark: site name + current date/time, tiled and faint ---------- */
+  var wm = document.getElementById("watermark");
+  function pad(n){ return n < 10 ? "0" + n : "" + n; }
+  function drawMark(){
+    if(!wm) return;
+    var d = new Date();
+    var txt = "sajjad_heydari  " + d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + "  " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="190">' +
+      '<text x="150" y="95" fill="white" font-family="Arial,sans-serif" font-size="15" text-anchor="middle" transform="rotate(-24 150 95)">' + txt + '</text></svg>';
+    wm.style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svg) + '")';
+  }
+  drawMark();
+  setInterval(drawMark, 20000);
+
   /* no context menu, no dragging, no copy/cut of page content */
   document.addEventListener("contextmenu", function(e){ e.preventDefault(); });
   document.addEventListener("dragstart", function(e){ e.preventDefault(); });
